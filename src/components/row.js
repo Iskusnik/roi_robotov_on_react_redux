@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Square from './square';
 import './componentsStyles.css';
+import {updateCodeField} from '../actions/actionCreators'
 
 
 class Row extends Component {
 
 
 
-    renderSquare(val, x, y, handler) {
+    renderSquare(val, x, y) {
         return (
             <Square
                 value={val}
-                onClick={()=>handler}
                 x={x}
                 y={y}
             />);
@@ -22,13 +22,15 @@ class Row extends Component {
         return (
             <div className="divTableRow">
                 {this.props.row.map((sq, index) => {
-                    return this.renderSquare(sq, index, this.props.y, handleClick)
+                    return this.renderSquare(sq, index, this.props.y)
                 })}
             </div>
         );
 
-        function handleClick(x, y) {
-            return updateCodeField(x, y);
+        function handleClick() {
+            let x = this.props.x;
+            let y = this.props.y;
+            return this.props.updateCodeField(x, y);
         }
     }
 
