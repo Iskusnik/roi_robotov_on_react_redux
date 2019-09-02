@@ -1,4 +1,4 @@
-import { GENERATE_CODE_FIELD, UPDATE_CODE_FIELD} from "./actionTypes";
+import { GENERATE_CODE_FIELD, UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON} from "./actionTypes";
 
 
 export function generateCodeField(N, M){
@@ -24,6 +24,15 @@ export function updateCodeField(X, Y){
         payload: {
             X: X,
             Y: Y
+        }
+    })
+}
+
+export function changeCodeButton(butCom){
+    return({
+        type: CHANGE_CODE_BUTTON,
+        payload: {
+            command: butCom
         }
     })
 }

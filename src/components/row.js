@@ -1,39 +1,43 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Square from './square';
 import './componentsStyles.css';
-import {updateCodeField} from '../actions/actionCreators'
-
 
 class Row extends Component {
 
 
 
-    renderSquare(val, x, y) {
+    renderSquare(val, x, y, boardType) {
         return (
             <Square
                 value={val}
                 x={x}
                 y={y}
+                boardType={boardType}
             />);
     }
 
     render(){
-        return (
-            <div className="divTableRow">
-                {this.props.row.map((sq, index) => {
-                    return this.renderSquare(sq, index, this.props.y)
-                })}
-            </div>
-        );
-
-        function handleClick() {
-            let x = this.props.x;
-            let y = this.props.y;
-            return this.props.updateCodeField(x, y);
+        if(this.props.y === 0){
+                return (
+                    <div className="divTableHeading">
+                        {this.props.row.map((sq, index) => {
+                            return this.renderSquare(sq, index, this.props.y, this.props.boardType)
+                        })}
+                    </div>
+                );
         }
-    }
+        else
+            return (
+                <div className="divTableRow">
+                    {this.props.row.map((sq, index) => {
+                        return this.renderSquare(sq, index, this.props.y, this.props.boardType)
+                    })}
+                </div>
+            );
 
+
+
+    }
 
 
 }

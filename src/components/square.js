@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './componentsStyles.css';
 import {updateCodeField} from '../actions/actionCreators'
-
+import {CODE, GAME} from './GameConstants.js';
 
 
 function mapDispatchToProps(dispatch) {
@@ -25,15 +25,36 @@ class CodeSquare extends Component{
 
     render()
     {
-        return(
-            <div className="divTableCell">
-                <button className="square" onClick={this.handleClick}>
+        if(this.props.boardType === CODE) {
+            if (this.props.y !== 0)
+                return (
+                    <div className="divTableCell">
+                        <button className="square" onClick={this.handleClick}>
+                            {
+                                this.props.value + "x" + this.props.x.toString() + "y" + this.props.y.toString()
+                            }
+                        </button>
+                    </div>
+                );
+            else
+                return (
+                    <div className="divTableCell">
+                        {
+                            this.props.value + "x" + this.props.x.toString() + "y" + this.props.y.toString()
+                        }
+                    </div>
+                );
+        }
+        else {
+            return (
+                <div className="divTableCell">
                     {
-                        this.props.value +"x"+ this.props.x.toString() +"y"+ this.props.y.toString()
+                        this.props.value + "x" + this.props.x.toString() + "y" + this.props.y.toString()
                     }
-                </button>
-            </div>
-        );
+                </div>
+            );
+        }
+
     }
 }
 const Square = connect(null, mapDispatchToProps)(CodeSquare);

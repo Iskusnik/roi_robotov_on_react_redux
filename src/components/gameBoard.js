@@ -15,16 +15,8 @@ const GameBoard = ({ rows }) => (
     </div>
 );
 
-const CodeBoard = ({ rows }) => (
-    <div className="divTable">
-        {rows.map((row, index) => {
-            return <Row row={row} y={index}/>
-        })}
-    </div>
-);
 
-
-export default connect(mapStateToProps)(CodeBoard);
+export default connect(mapStateToProps)(GameBoard);
 
 /*
 *handleClick(x, y) {

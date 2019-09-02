@@ -1,14 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import GameBoard from './components/board';
-import CodeBoard from './components/board'
+import CodeBoard from './components/codeBoard'
 
 const App = () => (
     <div className="row mt-5">
       <div className="col-md-4 offset-md-1">
-        <h2>Board 1</h2>
-          <GameBoard/>
+
           <h2>Board 2</h2>
           <CodeBoard/>
       </div>
