@@ -1,23 +1,7 @@
-import { GENERATE_CODE_FIELD, UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON} from "./actionTypes";
+import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE} from "./actionTypes";
 
 
-export function generateCodeField(N, M){
-    var boardRows = [];
 
-
-    for (var i = 0; i < M; i++) {
-        boardRows[i] = Array(N);
-    }
-
-    return({
-        type: GENERATE_CODE_FIELD,
-        payload: {
-            N: N,
-            M: M,
-            boardRows: boardRows
-        }
-    })
-}
 export function updateCodeField(X, Y){
     return({
         type: UPDATE_CODE_FIELD,
@@ -33,6 +17,16 @@ export function changeCodeButton(butCom){
         type: CHANGE_CODE_BUTTON,
         payload: {
             buttonCommand: butCom
+        }
+    })
+}
+
+export function changeInputValue(value, id){
+    return({
+        type: CHANGE_INPUT_VALUE,
+        payload: {
+            sizeValue: value,
+            id: id
         }
     })
 }

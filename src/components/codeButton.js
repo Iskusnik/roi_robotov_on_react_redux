@@ -41,9 +41,9 @@ class CodeButton extends Component{
 
     }
 }
-const t  = connect(null, mapDispatchToProps)(CodeButton);
+const MyButton  = connect(null, mapDispatchToProps)(CodeButton);
 
-export default t;
+export default MyButton;
 
 /*
 function Square(props){

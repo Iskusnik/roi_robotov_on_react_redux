@@ -8,11 +8,7 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import store from './store'
 
-
-import {  generateCodeField, updateCodeField } from "./actions/actionCreators";
 window.store = store;
-window.generateCodeField = generateCodeField;
-window.doSmth = updateCodeField;
 const rootElement = document.getElementById('root')
 
 ReactDOM.render(

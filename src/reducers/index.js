@@ -1,6 +1,6 @@
 //import { combineReducers } from "redux";
 //export default combineReducers();
-import { GENERATE_CODE_FIELD, UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON } from "../actions/actionTypes";
+import { UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE } from "../actions/actionTypes";
 import {gameButtons} from "../components/GameConstants";
 
 const initialState = {
@@ -15,9 +15,9 @@ const initialState = {
     foodSizeUnload:1,
     fuelSizeUnload:1,
     moveValue:{
-        jump1:'↑1',
-        jump2:'→4',
-        jump3:'↓2'
+        jump1:{dir:'↑', size:1},
+        jump2:{dir:'→', size:4},
+        jump3:{dir:'↓', size:2},
     },
     //x,y,food,fuel
     A1: [-1, -1, 0, 0],
@@ -30,23 +30,13 @@ const initialState = {
     A4: [-1, -1, 0, 0]
 };
 function rootReducer(state = initialState, action) {
-    if (action.type === GENERATE_CODE_FIELD) {
-        return Object.assign({}, state, {
-            N: state.N.concat(action.payload.N),
-            M: state.M.concat(action.payload.M),
-            boardRows: action.payload.boardRows
-            //boardRows: state.boardRows.concat(action.payload.boardRows)
-            //M: Object.assign({}, state.M, action.payload.M),
-            //M: Object.assign({}, state.N, action.payload.M)
-        });
-    }
     if (action.type === UPDATE_CODE_FIELD) {
         return Object.assign({}, state, {
             codeBoardRows: state.codeBoardRows.map((row, rowIndex) => {
                 if(rowIndex === action.payload.Y)
                     return row.map((cell, cellIndex) =>{
                         if(cellIndex === action.payload.X)
-                            return commandTransform(state.buttonValue)
+                            return commandTransform(state.buttonValue, state)
                         else
                             return cell;
                     })
@@ -55,34 +45,66 @@ function rootReducer(state = initialState, action) {
             })
         })
     }
-    if (action.type === CHANGE_CODE_BUTTON)
-    {
+    if (action.type === CHANGE_CODE_BUTTON) {
         return {
             ...state,
             buttonValue: action.payload.buttonCommand
         }
     }
+    if (action.type === CHANGE_INPUT_VALUE) {
+        switch (action.payload.id) {
+            case 'foodSizeLoad': {
+                return {
+                    ...state,
+                    foodSizeLoad: action.payload.sizeValue
+                }
+            }
 
+            case 'fuelSizeLoad': {
+                return {
+                    ...state,
+                    fuelSizeLoad: action.payload.sizeValue
+                }
+            }
+
+            case 'foodSizeUnload': {
+                return {
+                    ...state,
+                    foodSizeUnload: action.payload.sizeValue
+                }
+            }
+
+            case 'fuelSizeUnload': {
+                return {
+                    ...state,
+                    fuelSizeUnload: action.payload.sizeValue
+                }
+            }
+        }
+    }
     return state;
 };
 
-function commandTransform(buttonValue) {
+function commandTransform(buttonValue, state) {
     switch (buttonValue) {
         //UP
-        case gameButtons[0]: return('↑'+initialState.moveSize); break;
+        case gameButtons[0]: return('↑'+state.moveSize); break;
         //DOWN
-        case gameButtons[1]: return('↓'+initialState.moveSize); break;
+        case gameButtons[1]: return('↓'+state.moveSize); break;
         //LEFT
-        case gameButtons[2]: return('←'+initialState.moveSize); break;
+        case gameButtons[2]: return('←'+state.moveSize); break;
         //RIGHT
-        case gameButtons[3]: return('→'+initialState.moveSize); break;
+        case gameButtons[3]: return('→'+state.moveSize); break;
         //COMPOSED
-        case gameButtons[4]: return(initialState.moveValue.jump1 + initialState.moveValue.jump2 + initialState.moveValue.jump3); break;
+        case gameButtons[4]:
+            return(state.moveValue.jump1.dir +  state.moveValue.jump1.size
+                 + state.moveValue.jump2.dir +  state.moveValue.jump2.size
+                 + state.moveValue.jump3.dir +  state.moveValue.jump3.size); break;
 
         //LOAD
-        case gameButtons[5]: return('+'+'Т'+initialState.fuelSizeLoad+'П'+initialState.foodSizeLoad); break;
+        case gameButtons[5]: return('+'+'Т'+state.fuelSizeLoad+'П'+state.foodSizeLoad); break;
         //UNLOAD
-        case gameButtons[6]: return('-'+'Т'+initialState.fuelSizeLoad+'П'+initialState.foodSizeLoad); break;
+        case gameButtons[6]: return('-'+'Т'+state.fuelSizeUnload+'П'+state.foodSizeUnload); break;
 
         //SPLIT
         case gameButtons[7]: return('стык'); break;
