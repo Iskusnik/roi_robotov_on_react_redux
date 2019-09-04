@@ -5,7 +5,7 @@ import './componentsStyles.css';
 import {CODE} from './GameConstants'
 
 const mapStateToProps = state => {
-    return { rows: state.codeBoardRows,};
+    return { rows: state.codeBoardRows};
 };
 
 const CodeBoard = ({ rows }) => (

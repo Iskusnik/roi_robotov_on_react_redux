@@ -14,21 +14,19 @@ export const tileNames = {
     baseD:'baseD'
 };
 
-export const gameButtons = {
-    moveN:'UP',
-    moveS:'DOWN',
-    moveW:'LEFT',
-    moveE:'RIGHT',
-    moveComposed:'COMPOSED',
+export const gameButtons = [
+    'UP',
+    'DOWN',
+    'LEFT',
+    'RIGHT',
+    'COMPOSED',
 
-    loadFood:'LOAD_FOOD',
-    loadFuel:'LOAD_FUEL',
-    unloadFood:'UNLOAD_FOOD',
-    unloadFuel:'UNLOAD_FUEL',
+    'LOAD',
+    'UNLOAD',
 
-    splitRobos:'SPLIT',
-    connectRobos:'CONNECT'
-}
+    'SPLIT',
+    'CONNECT'
+]
 
 export const moveDir = {
     moveN:'UP',

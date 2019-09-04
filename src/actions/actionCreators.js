@@ -32,7 +32,7 @@ export function changeCodeButton(butCom){
     return({
         type: CHANGE_CODE_BUTTON,
         payload: {
-            command: butCom
+            buttonCommand: butCom
         }
     })
 }

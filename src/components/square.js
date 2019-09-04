@@ -11,6 +11,9 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
+function renderCommand(str) {
+
+}
 
 class CodeSquare extends Component{
     constructor() {
@@ -57,6 +60,8 @@ class CodeSquare extends Component{
 
     }
 }
+
+
 const Square = connect(null, mapDispatchToProps)(CodeSquare);
 
 export default Square;

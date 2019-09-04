@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './componentsStyles.css';
-import {changeCodeButton} from '../actions/actionCreators'
+import {changeCodeButton} from '../actions/actionCreators';
 
+//import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+//import Button from 'react-bootstrap/Button'
+//import ButtonGroup from 'react-bootstrap/ButtonGroup';
+//import ToggleButton from 'react-bootstrap/ToggleButton'
 
 function mapDispatchToProps(dispatch) {
     return {
-        changeCodeButton: (butCom) => dispatch(changeCodeButton(butCom))
+        changeCodeButton: (butCommand) => dispatch(changeCodeButton(butCommand))
     };
 }
+
 
 
 class CodeButton extends Component{
@@ -25,10 +30,10 @@ class CodeButton extends Component{
     render()
     {
         return (
-            <div className="divTableCell">
-                <button className="square" onClick={this.handleClick}>
+            <div>
+                <button className="square" onClick={this.handleClick} disabled={this.props.disabled}>
                     {
-                        this.props.value + "x" + this.props.x.toString() + "y" + this.props.y.toString()
+                        this.props.butCom
                     }
                 </button>
             </div>
@@ -36,9 +41,9 @@ class CodeButton extends Component{
 
     }
 }
-const Square = connect(null, mapDispatchToProps)(CodeSquare);
+const t  = connect(null, mapDispatchToProps)(CodeButton);
 
-export default Square;
+export default t;
 
 /*
 function Square(props){
@@ -57,5 +62,4 @@ function Square(props){
 * */
 
 
-export default connect(mapStateToProps)(CodeBoard);
 

@@ -2,13 +2,16 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import CodeBoard from './components/codeBoard'
+import CodeButton from './components/codeButton'
+import CodeButtonsMenu from './components/codeButtonsMenu'
 
 const App = () => (
     <div className="row mt-5">
       <div className="col-md-4 offset-md-1">
-
           <h2>Board 2</h2>
           <CodeBoard/>
+
+          <CodeButtonsMenu/>
       </div>
     </div>
 );
