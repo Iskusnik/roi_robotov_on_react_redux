@@ -136,6 +136,6 @@ button:hover {
 
 button:disabled,
 button[disabled]{
-    border: 1px solid #999999;
+    border: 1px solid #999998;
     background-color: lightblue;
 }
