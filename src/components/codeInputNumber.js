@@ -25,10 +25,10 @@ class CodeInputNumber extends Component{
     render()
     {
         return (
-            <div>
-                <label>
-                    {this.name}
-                </label>
+            <div className="flex-container">
+                <div>
+                    {this.props.name}
+                </div>
                 <input type="number" id={this.props.id} name={this.props.name} min="1" max="8" defaultValue={1} onChange={this.onSomeChange}/>
             </div>
         );

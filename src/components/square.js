@@ -34,7 +34,7 @@ class CodeSquare extends Component{
                     <div className="divTableCell">
                         <button className="square" onClick={this.handleClick}>
                             {
-                                this.props.value + "x" + this.props.x.toString() + "y" + this.props.y.toString()
+                                this.props.value
                             }
                         </button>
                     </div>
@@ -43,7 +43,7 @@ class CodeSquare extends Component{
                 return (
                     <div className="divTableCell">
                         {
-                            this.props.value + "x" + this.props.x.toString() + "y" + this.props.y.toString()
+                            this.props.value
                         }
                     </div>
                 );
@@ -52,7 +52,7 @@ class CodeSquare extends Component{
             return (
                 <div className="divTableCell">
                     {
-                        this.props.value + "x" + this.props.x.toString() + "y" + this.props.y.toString()
+                        this.props.value
                     }
                 </div>
             );

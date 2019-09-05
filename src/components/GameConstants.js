@@ -25,7 +25,8 @@ export const gameButtons = [
     'UNLOAD',
 
     'SPLIT',
-    'CONNECT'
+    'CONNECT',
+    'CLEAR'
 ]
 
 export const moveDir = {

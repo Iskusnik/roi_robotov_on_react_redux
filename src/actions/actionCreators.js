@@ -1,4 +1,4 @@
-import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE} from "./actionTypes";
+import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE} from "./actionTypes";
 
 
 
@@ -26,6 +26,16 @@ export function changeInputValue(value, id){
         type: CHANGE_INPUT_VALUE,
         payload: {
             sizeValue: value,
+            id: id
+        }
+    })
+}
+
+export function changeComposeMove(butCom, id) {
+    return({
+        type: CHANGE_COMPOSE_MOVE,
+        payload: {
+            butCom: butCom,
             id: id
         }
     })

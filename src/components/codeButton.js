@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './componentsStyles.css';
-import {changeCodeButton} from '../actions/actionCreators';
+import {changeCodeButton, changeComposeMove} from '../actions/actionCreators';
 
 //import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 //import Button from 'react-bootstrap/Button'
@@ -10,12 +10,39 @@ import {changeCodeButton} from '../actions/actionCreators';
 
 function mapDispatchToProps(dispatch) {
     return {
-        changeCodeButton: (butCommand) => dispatch(changeCodeButton(butCommand))
+        changeCodeButton: (butCommand) => dispatch(changeCodeButton(butCommand)),
+        changeComposeMove: (butCom, id) => dispatch(changeComposeMove(butCom, id))
     };
 }
 
 
+function commandToText(butCom){
+    switch (butCom) {
+        case 'UP': return('↑');
+        case 'DOWN': return('↓');
+        case 'RIGHT': return('→');
+        case 'LEFT': return('←');
+        case 'COMPOSED': return('✵');
+        case 'SPLIT': return('Расстык');
+        case 'CONNECT': return('Стык');
+        case 'LOAD': return('+');
+        case 'UNLOAD': return('-');
+        case 'CLEAR': return('Удалить');
 
+
+
+        case '↑': return('↑');
+        case '↓': return('↓');
+        case '→': return('→');
+        case '←': return('←');
+        case '↖': return('↖');
+        case '↗': return('↗');
+        case '↘': return('↘');
+        case '↙': return('↙');
+        case '': return('');
+
+    }
+}
 class CodeButton extends Component{
     constructor() {
         super();
@@ -24,7 +51,10 @@ class CodeButton extends Component{
 
 
     handleClick() {
-        this.props.changeCodeButton( this.props.butCom )
+        if(!this.props.id)
+            this.props.changeCodeButton( this.props.butCom );
+        else
+            this.props.changeComposeMove(this.props.butCom, this.props.id);
     }
 
     render()
@@ -33,13 +63,16 @@ class CodeButton extends Component{
             <div>
                 <button className="square" onClick={this.handleClick} disabled={this.props.disabled}>
                     {
-                        this.props.butCom
+                        commandToText(this.props.butCom)
                     }
                 </button>
             </div>
         );
 
     }
+
+
+
 }
 const MyButton  = connect(null, mapDispatchToProps)(CodeButton);
 

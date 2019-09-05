@@ -1,6 +1,6 @@
 //import { combineReducers } from "redux";
 //export default combineReducers();
-import { UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE } from "../actions/actionTypes";
+import { UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE } from "../actions/actionTypes";
 import {gameButtons} from "../components/GameConstants";
 
 const initialState = {
@@ -15,9 +15,9 @@ const initialState = {
     foodSizeUnload:1,
     fuelSizeUnload:1,
     moveValue:{
-        jump1:{dir:'↑', size:1},
-        jump2:{dir:'→', size:4},
-        jump3:{dir:'↓', size:2},
+        jump1:{dir:'', size:1},
+        jump2:{dir:'', size:1},
+        jump3:{dir:'', size:1},
     },
     //x,y,food,fuel
     A1: [-1, -1, 0, 0],
@@ -80,6 +80,87 @@ function rootReducer(state = initialState, action) {
                     fuelSizeUnload: action.payload.sizeValue
                 }
             }
+
+            case 'moveSize': {
+                return {
+                    ...state,
+                    moveSize: action.payload.sizeValue
+                }
+            }
+
+            case 'moveValue1':{
+                return {
+                    ...state,
+                    moveValue: {
+                        ...state.moveValue,
+                        jump1: {
+                            ...state.moveValue.jump1,
+                            size: action.payload.sizeValue
+                        }
+                    }
+                }
+            }
+            case 'moveValue2':{
+                return {
+                    ...state,
+                    moveValue: {
+                        ...state.moveValue,
+                        jump2: {
+                            ...state.moveValue.jump2,
+                            size: action.payload.sizeValue
+                        }
+                    }
+                }
+            }
+            case 'moveValue3':{
+                return {
+                    ...state,
+                    moveValue: {
+                        ...state.moveValue,
+                        jump3: {
+                            ...state.moveValue.jump3,
+                            size: action.payload.sizeValue
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (action.type === CHANGE_COMPOSE_MOVE) {
+        switch (action.payload.id) {
+            case 'jump1':
+                return {
+                    ...state,
+                    moveValue: {
+                        ...state.moveValue,
+                        jump1: {
+                            ...state.moveValue.jump1,
+                            dir: action.payload.butCom
+                        }
+                    }
+                }
+            case 'jump2':
+                return {
+                    ...state,
+                    moveValue: {
+                        ...state.moveValue,
+                        jump2: {
+                            ...state.moveValue.jump2,
+                            dir: action.payload.butCom
+                        }
+                    }
+                }
+            case 'jump3':
+                return {
+                    ...state,
+                    moveValue: {
+                        ...state.moveValue,
+                        jump3: {
+                            ...state.moveValue.jump3,
+                            dir: action.payload.butCom
+                        }
+                    }
+                }
         }
     }
     return state;
@@ -88,28 +169,37 @@ function rootReducer(state = initialState, action) {
 function commandTransform(buttonValue, state) {
     switch (buttonValue) {
         //UP
-        case gameButtons[0]: return('↑'+state.moveSize); break;
+        case 'UP': return('↑'+state.moveSize); break;
         //DOWN
-        case gameButtons[1]: return('↓'+state.moveSize); break;
+        case 'DOWN': return('↓'+state.moveSize); break;
         //LEFT
-        case gameButtons[2]: return('←'+state.moveSize); break;
+        case 'LEFT': return('←'+state.moveSize); break;
         //RIGHT
-        case gameButtons[3]: return('→'+state.moveSize); break;
+        case 'RIGHT': return('→'+state.moveSize); break;
         //COMPOSED
-        case gameButtons[4]:
-            return(state.moveValue.jump1.dir +  state.moveValue.jump1.size
-                 + state.moveValue.jump2.dir +  state.moveValue.jump2.size
-                 + state.moveValue.jump3.dir +  state.moveValue.jump3.size); break;
+        case 'COMPOSED':
+            let s = '';
+            if (state.moveValue.jump1.dir !== '')
+                s += state.moveValue.jump1.dir +  state.moveValue.jump1.size;
+            if (state.moveValue.jump2.dir !== '')
+                s += state.moveValue.jump2.dir +  state.moveValue.jump2.size;
+            if (state.moveValue.jump3.dir !== '')
+                s += state.moveValue.jump3.dir +  state.moveValue.jump3.size;
+
+            return(s);
+            break;
 
         //LOAD
-        case gameButtons[5]: return('+'+'Т'+state.fuelSizeLoad+'П'+state.foodSizeLoad); break;
+        case 'LOAD': return('+'+'Т'+state.fuelSizeLoad+'П'+state.foodSizeLoad); break;
         //UNLOAD
-        case gameButtons[6]: return('-'+'Т'+state.fuelSizeUnload+'П'+state.foodSizeUnload); break;
+        case 'UNLOAD': return('-'+'Т'+state.fuelSizeUnload+'П'+state.foodSizeUnload); break;
 
         //SPLIT
-        case gameButtons[7]: return('стык'); break;
+        case 'SPLIT': return('расстык'); break;
         //CONNECT
-        case gameButtons[8]: return('расстык'); break;
+        case 'CONNECT': return('стык'); break;
+        //CLEAR
+        case 'CLEAR': return(''); break;
     }
 }
 
