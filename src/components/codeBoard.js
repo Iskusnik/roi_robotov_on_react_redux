@@ -5,13 +5,16 @@ import './componentsStyles.css';
 import {CODE} from './GameConstants'
 
 const mapStateToProps = state => {
-    return { rows: state.codeBoardRows};
+    return {
+        rows: state.codeBoardRows,
+        selectedRow: state.currentCodeRow
+    };
 };
 
-const CodeBoard = ({ rows }) => (
+const CodeBoard = ({ rows, selectedRow }) => (
     <div className="divTable">
         {rows.map((row, index) => {
-            return <Row row={row} y={index} boardType={CODE}/>
+            return <Row row={row} y={index} boardType={CODE} selectedRow={selectedRow}/>
         })}
     </div>
 );

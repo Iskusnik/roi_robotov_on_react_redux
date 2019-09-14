@@ -4,7 +4,6 @@ import './componentsStyles.css';
 import CodeButton from './codeButton';
 import CodeInputNumber from './codeInputNumber';
 import {gameButtons} from './GameConstants';
-import {forEach} from "react-bootstrap/es/utils/ElementChildren";
 
 const mapStateToProps = state => {
     return {

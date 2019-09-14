@@ -4,10 +4,17 @@ import './App.css';
 import CodeBoard from './components/codeBoard'
 import CodeButton from './components/codeButton'
 import CodeButtonsMenu from './components/codeButtonsMenu'
+import GameButtonsMenu from './components/gameButtonsMenu'
+import GameBoard from "./components/gameBoard";
 
 const App = () => (
     <div className="row mt-5">
       <div className="col-md-4 offset-md-1">
+          <GameButtonsMenu/>
+
+          <h2>Board 2</h2>
+          <GameBoard/>
+
           <h2>Board 2</h2>
           <CodeBoard/>
 

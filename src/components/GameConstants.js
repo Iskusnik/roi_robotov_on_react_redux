@@ -3,16 +3,25 @@ export const GAME = 'GAME';
 
 
 export const tileNames = {
-    empty: 'empty',
-    mountain:'mountain',
-    hole:'hole',
-    rocket:'rocket',
-    storage:'storage',
-    baseA:'baseA',
-    baseB:'baseB',
-    baseC:'baseC',
-    baseD:'baseD'
+    empty: '',
+    mountain:'m',
+    hole:'h',
+    rocket:'r',
+    storage:'s',
+    baseA:'A',
+    baseB:'B',
+    baseC:'C',
+    baseD:'D'
 };
+
+export const errorNames = {
+    outOfMap: "Робот вышел за границы карты",
+    unexpectedCommand: "Нет робота для исполнения команды",
+    wrongCommand: "Данная команда не может быть выполнена такой связкой роботов",
+    overload: "Робот перегружен и не может взять дополнительынй груз",
+    connectionErrorLoad: "Невозможно соединить/разъединить роботов - необходима разгрузка",
+    connectionErrorPlace: "Невозможно разъединить роботов - необходима свободная клетка справа",
+}
 
 export const gameButtons = [
     'UP',

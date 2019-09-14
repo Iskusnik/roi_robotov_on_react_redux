@@ -52,7 +52,7 @@ class CodeSquare extends Component{
             return (
                 <div className="divTableCell">
                     {
-                        this.props.value
+                        this.props.value //+"x"+ this.props.x.toString() +"y"+ this.props.y.toString()
                     }
                 </div>
             );
@@ -72,7 +72,7 @@ function Square(props){
         <div className="divTableCell">
             <button className="square" onClick={props.onClick}>
                 {
-                    props.value +"x"+ props.x.toString() +"y"+ props.y.toString()
+                    props.value +"x"+ this.props.x.toString() +"y"+ this.props.y.toString()
                 }
             </button>
         </div>

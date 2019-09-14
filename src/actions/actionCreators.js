@@ -1,4 +1,4 @@
-import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE} from "./actionTypes";
+import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE, LOAD_GAME_FIELD, MAKE_STEP, RESET_BOARD} from "./actionTypes";
 
 
 
@@ -38,6 +38,34 @@ export function changeComposeMove(butCom, id) {
             butCom: butCom,
             id: id
         }
+    })
+}
+
+export function loadGameField(field) {
+    return({
+        type: LOAD_GAME_FIELD,
+        payload: {
+            field: field
+        }
+    })
+}
+
+export function makeStep(field, a1, b1, c1, d1) {
+    return({
+        type: MAKE_STEP,
+        payload: {
+            field: field,
+            a1: a1,
+            b1: b1,
+            c1: c1,
+            d1: d1
+        }
+    })
+}
+
+export function resetBoard() {
+    return({
+        type: RESET_BOARD,
     })
 }
 /*

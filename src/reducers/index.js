@@ -1,14 +1,23 @@
 //import { combineReducers } from "redux";
 //export default combineReducers();
-import { UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE } from "../actions/actionTypes";
+import {
+    UPDATE_CODE_FIELD,
+    CHANGE_CODE_BUTTON,
+    CHANGE_INPUT_VALUE,
+    CHANGE_COMPOSE_MOVE,
+    LOAD_GAME_FIELD,
+    MAKE_STEP,
+    RESET_BOARD,
+} from "../actions/actionTypes";
 import {gameButtons} from "../components/GameConstants";
 
 const initialState = {
-    gameBoardRows: [[0,2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
-    codeBoardRows: [['А1','Б1','В1','Г1','А2','Б2','А3','А4'],['','','','','','','',''],['','','','','','','','']],
-    N: [3],
-    M: [4],
-    buttonValue: 'move',
+    gameBoardRows: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
+    codeBoardRows: [['А1','Б1','В1','Г1','А2','Б2','А3','А4'],['','','','','','','','']],
+    currentCodeRow: 1,
+    N: [3], //columns x
+    M: [4], //rows    y
+    buttonValue: 'UP',
     moveSize:1,
     foodSizeLoad:1,
     fuelSizeLoad:1,
@@ -19,7 +28,7 @@ const initialState = {
         jump2:{dir:'', size:1},
         jump3:{dir:'', size:1},
     },
-    //x,y,food,fuel
+    //y,x,food,fuel
     A1: [-1, -1, 0, 0],
     B1: [-1, -1, 0, 0],
     C1: [-1, -1, 0, 0],
@@ -27,12 +36,32 @@ const initialState = {
     A2: [-1, -1, 0, 0],
     B2: [-1, -1, 0, 0],
     A3: [-1, -1, 0, 0],
-    A4: [-1, -1, 0, 0]
+    A4: [-1, -1, 0, 0],
+    paused: false,
+    playing: false,
+
+    A1StartingPosition: [-1, -1, 0, 0],
+    B1StartingPosition: [-1, -1, 0, 0],
+    C1StartingPosition: [-1, -1, 0, 0],
+    D1StartingPosition: [-1, -1, 0, 0],
+    A2StartingPosition: [-1, -1, 0, 0],
+    B2StartingPosition: [-1, -1, 0, 0],
+    A3StartingPosition: [-1, -1, 0, 0],
+    A4StartingPosition: [-1, -1, 0, 0],
+
+    gameBoardRowsStartingPosition: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
 };
 function rootReducer(state = initialState, action) {
     if (action.type === UPDATE_CODE_FIELD) {
+
+        const newEmptyRow = ['','','','','','','',''];
+
+        var codeBoardNew = [...state.codeBoardRows];
+        if(action.payload.Y === (state.codeBoardRows.length - 1))
+            codeBoardNew = [...state.codeBoardRows, newEmptyRow];
+
         return Object.assign({}, state, {
-            codeBoardRows: state.codeBoardRows.map((row, rowIndex) => {
+            codeBoardRows: codeBoardNew.map((row, rowIndex) => {
                 if(rowIndex === action.payload.Y)
                     return row.map((cell, cellIndex) =>{
                         if(cellIndex === action.payload.X)
@@ -163,6 +192,42 @@ function rootReducer(state = initialState, action) {
                 }
         }
     }
+    if (action.type === LOAD_GAME_FIELD) {
+        return {
+            ...state,
+            gameBoardRows: action.payload.field,
+            gameBoardRowsStartingPosition: action.payload.field,
+            A1: action.payload.a1,
+            B1: action.payload.b1,
+            C1: action.payload.c1,
+            D1: action.payload.d1,
+
+            A1StartingPosition: action.payload.a1,
+            B1StartingPosition: action.payload.b1,
+            C1StartingPosition: action.payload.c1,
+            D1StartingPosition: action.payload.d1
+        }
+    }
+    if (action.type === MAKE_STEP) {
+        return {
+            ...state,
+            gameBoardRows: action.payload.field
+        }
+    }
+    if (action.type === RESET_BOARD) {
+        return {
+            ...state,
+            gameBoardRows: state.gameBoardRowsStartingPosition,
+            A1: state.A1StartingPosition,
+            B1: state.B1StartingPosition,
+            C1: state.C1StartingPosition,
+            D1: state.D1StartingPosition,
+            A2: [-1, -1, 0, 0],
+            B2: [-1, -1, 0, 0],
+            A3: [-1, -1, 0, 0],
+            A4: [-1, -1, 0, 0],
+        }
+    }
     return state;
 };
 
@@ -202,7 +267,9 @@ function commandTransform(buttonValue, state) {
         case 'CLEAR': return(''); break;
     }
 }
+function makeStep() {
 
+}
 export default rootReducer;
 
 /*
