@@ -6,13 +6,25 @@ import './componentsStyles.css';
 import {CODE, GAME} from './GameConstants'
 
 const mapStateToProps = state => {
-    return { rows: state.gameBoardRows,};
+    return {
+        rows: state.gameBoardRows,
+        bots: {
+            0: state.A1,
+            1: state.B1,
+            2: state.C1,
+            3: state.D1,
+            4: state.A2,
+            5: state.B2,
+            6: state.A3,
+            7: state.A4,
+        }
+    };
 };
 
-const GameBoard = ({ rows }) => (
+const GameBoard = ({ rows, bots }) => (
     <div className="divTable">
         {rows.map((row, index) => {
-                return <Row row={row} y={index} boardType={GAME}/>
+                return <Row row={row} y={index} boardType={GAME} bots={bots}/>
         })}
     </div>
 );

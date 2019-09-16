@@ -16,6 +16,9 @@ export const tileNames = {
 
 export const errorNames = {
     outOfMap: "Робот вышел за границы карты",
+    roboCollision: "Роботы столкнулись",
+    roboFall: "Робот упал в расщелину",
+    roboMount: "Робот столкнулся с горой",
     unexpectedCommand: "Нет робота для исполнения команды",
     wrongCommand: "Данная команда не может быть выполнена такой связкой роботов",
     overload: "Робот перегружен и не может взять дополнительынй груз",

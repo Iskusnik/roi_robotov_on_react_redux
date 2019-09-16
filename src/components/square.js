@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './componentsStyles.css';
 import {updateCodeField} from '../actions/actionCreators'
-import {CODE, GAME} from './GameConstants.js';
+import {CODE, GAME, tileNames} from './GameConstants.js';
 
 
 function mapDispatchToProps(dispatch) {
@@ -49,10 +49,24 @@ class CodeSquare extends Component{
                 );
         }
         else {
+            var idIMG = '';
+            var val = this.props.value;
+            if (this.props.bot.isBot) {
+                idIMG = 'robo';
+                val = this.props.bot.name
+            }
+            if (this.props.value[0] === tileNames.rocket)
+                idIMG = 'rocket';
+            if (this.props.value[0] === tileNames.storage)
+                idIMG = 'storage';
+            if (this.props.value[0] === tileNames.hole)
+                idIMG = 'hole';
+            if (this.props.value[0] === tileNames.mountain)
+                idIMG = 'mountain';
             return (
-                <div className="divTableCell">
+                <div className="divTableCell" id = {idIMG}>
                     {
-                        this.props.value //+"x"+ this.props.x.toString() +"y"+ this.props.y.toString()
+                        val //+"x"+ this.props.x.toString() +"y"+ this.props.y.toString()
                     }
                 </div>
             );

@@ -12,27 +12,33 @@ import {
 import {gameButtons} from "../components/GameConstants";
 
 const initialState = {
-    gameBoardRows: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
-    codeBoardRows: [['А1','Б1','В1','Г1','А2','Б2','А3','А4'],['','','','','','','','']],
-    currentCodeRow: 1,
-    N: [3], //columns x
-    M: [4], //rows    y
+    gameBoardRows: [
+        ['','','','',''],
+        ['','A','B','',''],
+        ['','D','C','',''],
+        ['','','','',''],
+        ['','','r','s',''],
+    ],
+    codeBoardRows: [['А1','B1','C1','D1','А2','B2','А3','А4'],['←1','↓1','→1','←1','','','','']],
+    currentCodeRow: [1],
+    N: [5], //columns x
+    M: [5], //rows    y
     buttonValue: 'UP',
     moveSize:1,
-    foodSizeLoad:1,
-    fuelSizeLoad:1,
-    foodSizeUnload:1,
-    fuelSizeUnload:1,
+    foodSizeLoad:0,
+    fuelSizeLoad:0,
+    foodSizeUnload:0,
+    fuelSizeUnload:0,
     moveValue:{
         jump1:{dir:'', size:1},
         jump2:{dir:'', size:1},
         jump3:{dir:'', size:1},
     },
     //y,x,food,fuel
-    A1: [-1, -1, 0, 0],
-    B1: [-1, -1, 0, 0],
-    C1: [-1, -1, 0, 0],
-    D1: [-1, -1, 0, 0],
+    A1: [1, 1, 0, 0],
+    B1: [1, 2, 0, 0],
+    C1: [2, 2, 0, 0],
+    D1: [2, 1, 0, 0],
     A2: [-1, -1, 0, 0],
     B2: [-1, -1, 0, 0],
     A3: [-1, -1, 0, 0],
@@ -40,17 +46,55 @@ const initialState = {
     paused: false,
     playing: false,
 
-    A1StartingPosition: [-1, -1, 0, 0],
-    B1StartingPosition: [-1, -1, 0, 0],
-    C1StartingPosition: [-1, -1, 0, 0],
-    D1StartingPosition: [-1, -1, 0, 0],
-    A2StartingPosition: [-1, -1, 0, 0],
-    B2StartingPosition: [-1, -1, 0, 0],
-    A3StartingPosition: [-1, -1, 0, 0],
-    A4StartingPosition: [-1, -1, 0, 0],
+    A1StartingPosition: [1, 1, 0, 0],
+    B1StartingPosition: [1, 2, 0, 0],
+    C1StartingPosition: [2, 2, 0, 0],
+    D1StartingPosition: [2, 1, 0, 0],
 
     gameBoardRowsStartingPosition: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
 };
+const initialStateTestComposeRobo = {
+    gameBoardRows: [
+        ['','','',''],
+        ['','A','B',''],
+        ['','D','C',''],
+        ['','','','']
+    ],
+    codeBoardRows: [['А1','Б1','В1','Г1','А2','Б2','А3','А4'],['←1','↓1','→1','←1','','','','']],
+    currentCodeRow: 1,
+    N: [4], //columns x
+    M: [4], //rows    y
+    buttonValue: 'UP',
+    moveSize:1,
+    foodSizeLoad:0,
+    fuelSizeLoad:0,
+    foodSizeUnload:0,
+    fuelSizeUnload:0,
+    moveValue:{
+        jump1:{dir:'', size:1},
+        jump2:{dir:'', size:1},
+        jump3:{dir:'', size:1},
+    },
+    //y,x,food,fuel
+    A1: [1, 1, 0, 0],
+    B1: [1, 2, 0, 0],
+    C1: [2, 2, 0, 0],
+    D1: [2, 1, 0, 0],
+    A2: [-1, -1, 0, 0],
+    B2: [-1, -1, 0, 0],
+    A3: [-1, -1, 0, 0],
+    A4: [-1, -1, 0, 0],
+    paused: false,
+    playing: false,
+
+    A1StartingPosition: [1, 1, 0, 0],
+    B1StartingPosition: [1, 2, 0, 0],
+    C1StartingPosition: [2, 2, 0, 0],
+    D1StartingPosition: [2, 1, 0, 0],
+
+    gameBoardRowsStartingPosition: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
+};
+
 function rootReducer(state = initialState, action) {
     if (action.type === UPDATE_CODE_FIELD) {
 
@@ -65,7 +109,7 @@ function rootReducer(state = initialState, action) {
                 if(rowIndex === action.payload.Y)
                     return row.map((cell, cellIndex) =>{
                         if(cellIndex === action.payload.X)
-                            return commandTransform(state.buttonValue, state)
+                            return commandTransform(state.buttonValue, state);
                         else
                             return cell;
                     })
@@ -193,8 +237,13 @@ function rootReducer(state = initialState, action) {
         }
     }
     if (action.type === LOAD_GAME_FIELD) {
+        var N = action.payload.field.length;
+        var M = action.payload.field[0].length;
+
         return {
             ...state,
+            N: N,
+            M: M,
             gameBoardRows: action.payload.field,
             gameBoardRowsStartingPosition: action.payload.field,
             A1: action.payload.a1,
@@ -211,7 +260,11 @@ function rootReducer(state = initialState, action) {
     if (action.type === MAKE_STEP) {
         return {
             ...state,
-            gameBoardRows: action.payload.field
+            gameBoardRows: action.payload.field,
+            A1: action.payload.a1,
+            B1: action.payload.b1,
+            C1: action.payload.c1,
+            D1: action.payload.d1
         }
     }
     if (action.type === RESET_BOARD) {
@@ -255,9 +308,15 @@ function commandTransform(buttonValue, state) {
             break;
 
         //LOAD
-        case 'LOAD': return('+'+'Т'+state.fuelSizeLoad+'П'+state.foodSizeLoad); break;
+        case 'LOAD':
+            if(state.fuelSizeLoad === 0 && state.foodSizeLoad === 0)
+                return ('');
+            return('+'+'Т'+state.fuelSizeLoad+'П'+state.foodSizeLoad); break;
         //UNLOAD
-        case 'UNLOAD': return('-'+'Т'+state.fuelSizeUnload+'П'+state.foodSizeUnload); break;
+        case 'UNLOAD':
+            if(state.fuelSizeUnload === 0 && state.foodSizeUnload === 0)
+                return ('');
+            return('-'+'Т'+state.fuelSizeUnload+'П'+state.foodSizeUnload); break;
 
         //SPLIT
         case 'SPLIT': return('расстык'); break;

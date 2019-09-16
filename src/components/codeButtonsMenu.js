@@ -35,7 +35,7 @@ export class CodeButtonsMenu extends  Component{
                                 return <CodeButton butCom={value} disabled={true}/>
                         }
                     })}
-                    <CodeInputNumber id={'moveSize'}/>
+                    <CodeInputNumber id={'moveSize'} min='1'/>
 
                     {this.buttonsCommands.map((value, index) => {
                         if (index === 5)
@@ -46,8 +46,8 @@ export class CodeButtonsMenu extends  Component{
                                 return <CodeButton butCom={value} disabled={true}/>
                         }
                     })}
-                    <CodeInputNumber id={'fuelSizeLoad'} name={'Т'}/>
-                    <CodeInputNumber id={'foodSizeLoad'} name={'П'}/>
+                    <CodeInputNumber id={'fuelSizeLoad'} name={'Т'} min='0'/>
+                    <CodeInputNumber id={'foodSizeLoad'} name={'П'} min='0'/>
 
                     {this.buttonsCommands.map((value, index) => {
                         if (index === 6)
@@ -58,8 +58,8 @@ export class CodeButtonsMenu extends  Component{
                                 return <CodeButton butCom={value} disabled={true}/>
                         }
                     })}
-                    <CodeInputNumber id={'fuelSizeUnload'} name={'Т'}/>
-                    <CodeInputNumber id={'foodSizeUnload'} name={'П'}/>
+                    <CodeInputNumber id={'fuelSizeUnload'} name={'Т'} min='0'/>
+                    <CodeInputNumber id={'foodSizeUnload'} name={'П'} min='0'/>
 
 
                     {this.buttonsCommands.map((value, index) => {
@@ -103,7 +103,7 @@ export class CodeButtonsMenu extends  Component{
                                 })
                             }
                         <div className="grid-item">
-                            <CodeInputNumber id={'moveValue1'}/>
+                            <CodeInputNumber id={'moveValue1'} min='1'/>
                         </div>
 
                         {
@@ -124,7 +124,7 @@ export class CodeButtonsMenu extends  Component{
                             })
                         }
                         <div className="grid-item">
-                            <CodeInputNumber id={'moveValue2'}/>
+                            <CodeInputNumber id={'moveValue2'} min='1'/>
                         </div>
 
 
@@ -146,7 +146,7 @@ export class CodeButtonsMenu extends  Component{
                             })
                         }
                         <div className="grid-item">
-                            <CodeInputNumber id={'moveValue3'}/>
+                            <CodeInputNumber id={'moveValue3'} min='1'/>
                         </div>
                     </div>
                 </div>

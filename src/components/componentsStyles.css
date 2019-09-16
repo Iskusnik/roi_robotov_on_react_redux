@@ -70,10 +70,49 @@ ol, ul {
 .divTableCell, .divTableHead {
     border: 1px solid #999999;
     display: table-cell;
-    padding: 10px 10px;
+    align-content: center;
+    padding: 20px 20px;
     height: 25px;
     width: 25px;
 }
+
+#rocket.divTableCell{
+    background-color: red;
+    //display: block;
+    //width:  50%;
+    //background-image: ;
+}
+#hole.divTableCell{
+    background-color: black;
+//background-image: ;
+}
+#storage.divTableCell{
+    background-color: goldenrod;
+//background-image: ;
+}
+
+#mountain.divTableCell{
+    background-color: #61dafb;
+//background-image: ;
+}
+
+
+#robo.divTableCell{
+    background-color: springgreen;
+//background-image: ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .divTableHeading {
     background-color: #EEE;
     display: table-header-group;

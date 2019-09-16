@@ -41,16 +41,21 @@ export function changeComposeMove(butCom, id) {
     })
 }
 
-export function loadGameField(field) {
+export function loadGameField(field, a1, b1, c1, d1) {
+
     return({
         type: LOAD_GAME_FIELD,
         payload: {
-            field: field
+            field: field,
+            a1: a1,
+            b1: b1,
+            c1: c1,
+            d1: d1
         }
     })
 }
 
-export function makeStep(field, a1, b1, c1, d1) {
+export function makeStep(field, a1, b1, c1, d1, a2, b2, a3, a4) {
     return({
         type: MAKE_STEP,
         payload: {
@@ -58,7 +63,11 @@ export function makeStep(field, a1, b1, c1, d1) {
             a1: a1,
             b1: b1,
             c1: c1,
-            d1: d1
+            d1: d1,
+            a2: a2,
+            b2: b2,
+            a3: a3,
+            a4: a4
         }
     })
 }

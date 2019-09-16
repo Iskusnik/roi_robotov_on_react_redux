@@ -6,19 +6,23 @@ import {loadGameField, makeStep} from "../actions/actionCreators";
 
 const mapStateToProps = state => {
     return {
-        gameBoardRows: state.gameBoardRows,
+        gameState:{
+            gameBoardRows: state.gameBoardRows,
+            //y,x,food,fuel
+            0: state.A1,
+            1: state.B1,
+            2: state.C1,
+            3: state.D1,
+            4: state.A2,
+            5: state.B2,
+            6: state.A3,
+            7: state.A4,
+        },
+
         codeBoardRows: state.codeBoardRows,
         selectedRow: state.currentCodeRow,
         N: state.N, //columns
         M: state.M, //rows
-        A1: state.A1,
-        B1: state.B1,
-        C1: state.C1,
-        D1: state.D1,
-        A2: state.A2,
-        B2: state.B2,
-        A3: state.A3,
-        A4: state.A4,
         pause: state.paused,
         play: state.playing,
     };
@@ -26,8 +30,8 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadGameField: (field) => dispatch(loadGameField(field)),
-        makeStep:(field) => dispatch(makeStep(field))
+        loadGameField: (field, a1,b1,c1,d1) => dispatch(loadGameField(field, a1,b1,c1,d1)),
+        makeStep:(field, a1,b1,c1,d1,a2,b2,a3,a4) => dispatch(makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4))
     };
 }
 
@@ -39,14 +43,78 @@ export class GameButtonsMenu extends  Component{
     }
 
     handleMakeStep(){
-
+        var {field, a1,b1,c1,d1,a2,b2,a3,a4} = this.calcNewState()
+        this.props.makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4)
     }
-    //Есть ошибка - false
-    //Нет ошибки - true
-    errorCheck(){
-        var line = this.props.codeBoardRows[this.props.selectedRow];
+    calcNewState(){
+        var erCode = [''];
+        var newGameState = Object.assign({}, this.props.gameState);
+        var line = this.props.gameState.codeBoardRows[this.props.selectedRow];
 
-        return true
+        for (var i = 0; i < 8; i++){
+            //0 - движение,
+            // 1 - загрузка/разгрузка,
+            // 2 - стык,
+            // 3 - расстык,
+            //-1 - бездействие
+            var t = -1;
+
+            //знак для загрузки/разгрузки
+            var sign = 0;
+
+            switch (line[i][0]) {
+                case '+': sign = 1; t = 1; break;
+                case '-': sign = -1; t = 1; break;
+                case 'с': t = 2; break;
+                case 'р': t = 3; break;
+                default: t = 0; break;
+            }
+            switch (t) {
+                case 0:{
+                    if(i < 4){
+                        if(line[i].length > 2) {
+                            erCode.push(errorNames.wrongCommand);
+                        }
+                        //y
+                        if(line[i][0] === '↑'){
+                            newGameState[i][0] += line[i][1];
+                        }
+                        if(line[i][0] === '↓'){
+                            newGameState[i][0] -= line[i][1];
+                        }
+                        //x
+                        if(line[i][0] === '→'){
+                            newGameState[i][1] += line[i][1];
+                        }
+                        if(line[i][0] === '←'){
+                            newGameState[i][1] -= line[i][1];
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+        }
+        return {
+            field:newGameState.gameBoardRows,
+            a1: newGameState[0],
+            b1: newGameState[1],
+            c1: newGameState[2],
+            d1: newGameState[3],
+            a2: newGameState[4],
+            b2: newGameState[5],
+            a3: newGameState[6],
+            a4: newGameState[7],
+            erCode: erCode
+        };
+    }
+    //Есть ошибка - код ошибки
+    //Нет ошибки - ''
+    errorCheck(newGameState){
+        var erCode = [''];
+
+        return erCode
     }
 
     loadMap(e){
@@ -66,7 +134,10 @@ export class GameButtonsMenu extends  Component{
                 }
                 var {gameField, a1, b1, c1, d1} = this.txtToMap(infoLines);
 
-
+                console.log(a1);
+                console.log(b1);
+                console.log(c1);
+                console.log(d1);
                 this.props.loadGameField(gameField, a1, b1, c1, d1);
             };
             reader.readAsText(file);
@@ -167,8 +238,11 @@ export class GameButtonsMenu extends  Component{
 
     render() {
         return(
-            <input type="file" onChange={(e)=> this.loadMap(e)}/>
-            )}
+            <div>
+                <input type="file" onChange={(e)=> this.loadMap(e)}/>
+                <button onClick={(e)=> this.handleMakeStep(e)}/>
+            </div>
+        )}
 
 
 }

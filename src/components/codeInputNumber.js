@@ -15,6 +15,7 @@ class CodeInputNumber extends Component{
     constructor() {
         super();
         this.onSomeChange  = this.handleClick.bind(this);
+
     }
 
 
@@ -29,7 +30,7 @@ class CodeInputNumber extends Component{
                 <div>
                     {this.props.name}
                 </div>
-                <input type="number" id={this.props.id} name={this.props.name} min="1" max="8" defaultValue={1} onChange={this.onSomeChange}/>
+                <input type="number" id={this.props.id} name={this.props.name} min={this.props.min} max="8" defaultValue={this.props.min} onChange={this.onSomeChange}/>
             </div>
         );
 
