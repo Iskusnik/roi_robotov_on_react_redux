@@ -5,18 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81edc678-cf11-4dfa-8065-632b6c0f18a0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/gameButtonsMenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/rocket.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/actionCreators.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/actionCreators.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/actionTypes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GameConstants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GameConstants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/codeBoard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/codeBoard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/codeButtonsMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/codeButtonsMenu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/componentsStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/componentsStyles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/gameBoard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/gameBoard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/row.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/row.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/square.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/square.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/gameButtonsMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/gameButtonsMenu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -31,10 +23,23 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/gameButtonsMenu.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="986">
+              <caret line="82" column="71" lean-forward="true" selection-start-line="82" selection-start-column="71" selection-end-line="82" selection-end-column="71" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="n#!!block;n#splitXY#0;n#GameButtonsMenu#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/actions/actionCreators.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="67" column="25" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="25" />
+            <state relative-caret-position="399">
+              <caret line="51" column="19" lean-forward="true" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
               <folding>
                 <element signature="n#!!block;n#updateCodeField#0" />
                 <element signature="n#!!block;n#changeCodeButton#0" />
@@ -45,62 +50,44 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/actions/actionTypes.js">
+        <entry file="file://$PROJECT_DIR$/src/components/codeButton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="24" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/gameButtonsMenu.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="138" column="13" lean-forward="true" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
+            <state relative-caret-position="17">
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-                <element signature="n#!!block;n#splitXY#0;n#GameButtonsMenu#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="394">
-              <caret line="216" column="34" selection-start-line="216" selection-start-column="34" selection-end-line="216" selection-end-column="34" />
+            <state relative-caret-position="274">
+              <caret line="267" column="28" selection-start-line="267" selection-start-column="28" selection-end-line="267" selection-end-column="28" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#79#270#0" expanded="true" />
-                <element signature="e#2016#4150#0" />
-                <element signature="e#4196#5348#0" />
-                <element signature="e#5592#5608#0" />
-                <element signature="n#!!block;n#commandTransform#0" />
+                <element signature="e#1358#1487#0" />
+                <element signature="e#1459#2488#0" />
+                <element signature="e#3561#5695#0" />
+                <element signature="e#5741#6893#0" />
+                <element signature="e#6935#7579#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/square.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="54" column="43" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="n#!!block;n#mapDispatchToProps#0" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/components/rocket.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/codeBoard.js">
+        <entry file="file://$PROJECT_DIR$/src/components/gameBoard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="102">
+              <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -111,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/row.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+            <state relative-caret-position="68">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -121,10 +108,23 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/square.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1020">
+              <caret line="64" column="35" lean-forward="true" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="n#!!block;n#mapDispatchToProps#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/componentsStyles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="60" column="20" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="20" />
+            <state relative-caret-position="255">
+              <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
               <folding>
                 <element signature="e#88#115#0" />
                 <element signature="e#128#185#0" />
@@ -157,28 +157,27 @@
         <option value="$PROJECT_DIR$/src/components/board.js" />
         <option value="$PROJECT_DIR$/src/components/boardTypes.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/components/codeInputNumber.js" />
         <option value="$PROJECT_DIR$/src/components/codeButton.js" />
-        <option value="$PROJECT_DIR$/src/components/codeButtonsMenu.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/components/gameBoard.js" />
         <option value="$PROJECT_DIR$/src/components/codeBoard.js" />
-        <option value="$PROJECT_DIR$/src/components/componentsStyles.css" />
-        <option value="$PROJECT_DIR$/src/components/row.js" />
-        <option value="$PROJECT_DIR$/src/components/GameConstants.js" />
-        <option value="$PROJECT_DIR$/src/components/gameButtonsMenu.js" />
-        <option value="$PROJECT_DIR$/src/components/square.js" />
         <option value="$PROJECT_DIR$/src/actions/actionTypes.js" />
+        <option value="$PROJECT_DIR$/src/components/codeInputNumber.js" />
+        <option value="$PROJECT_DIR$/src/components/codeButtonsMenu.js" />
+        <option value="$PROJECT_DIR$/src/components/GameConstants.js" />
+        <option value="$PROJECT_DIR$/src/components/gameBoard.js" />
+        <option value="$PROJECT_DIR$/src/components/row.js" />
         <option value="$PROJECT_DIR$/src/actions/actionCreators.js" />
+        <option value="$PROJECT_DIR$/src/components/square.js" />
+        <option value="$PROJECT_DIR$/src/components/gameButtonsMenu.js" />
         <option value="$PROJECT_DIR$/src/reducers/index.js" />
+        <option value="$PROJECT_DIR$/src/components/componentsStyles.css" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="793" />
     <option name="width" value="814" />
-    <option name="height" value="788" />
+    <option name="height" value="907" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -238,11 +237,12 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\IskusnikXD\WebstormProjects\roi_robotov_on_react_redux\src\components" />
+      <recent name="C:\Users\IskusnikXD\WebstormProjects\roi_robotov_on_react_redux\src\store" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\IskusnikXD\WebstormProjects\roi_robotov_on_react_redux\src\components" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\IskusnikXD\WebstormProjects\roi_robotov_on_react_redux\src\store" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -298,7 +298,8 @@
       <workItem from="1567252361648" duration="11058000" />
       <workItem from="1567503310813" duration="18888000" />
       <workItem from="1567671420464" duration="19311000" />
-      <workItem from="1567963197527" duration="29087000" />
+      <workItem from="1567963197527" duration="49286000" />
+      <workItem from="1568709440611" duration="4494000" />
     </task>
     <task id="LOCAL-00001" summary="Функция для обнавления массива">
       <created>1567090952660</created>
@@ -363,11 +364,18 @@
       <option name="project" value="LOCAL" />
       <updated>1567689236662</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Добавлены действия для обработки команд">
+      <created>1568483731219</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1568483731219</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156986000" />
+    <option name="totallyTimeSpent" value="181679000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -388,7 +396,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32522407" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.18822023" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.18822023" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -430,7 +438,8 @@
     <MESSAGE value="updating values in cells by clicking" />
     <MESSAGE value="work in progress" />
     <MESSAGE value="Добавлены стили css для кнопок. Подумать над цветом и шириной grid элементов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены стили css для кнопок. Подумать над цветом и шириной grid элементов" />
+    <MESSAGE value="Добавлены действия для обработки команд" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены действия для обработки команд" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -496,26 +505,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/codeInputNumber.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/codeButton.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="76" column="50" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -526,52 +515,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/gameBoard.js">
+    <entry file="file://$PROJECT_DIR$/src/actions/actionTypes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/codeButtonsMenu.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="442">
+          <caret line="145" column="30" lean-forward="true" selection-start-line="145" selection-start-column="30" selection-end-line="145" selection-end-column="30" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/componentsStyles.css">
+    <entry file="file://$PROJECT_DIR$/src/components/codeInputNumber.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="60" column="20" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="20" />
-          <folding>
-            <element signature="e#88#115#0" />
-            <element signature="e#128#185#0" />
-            <element signature="e#195#223#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/GameConstants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="22" column="96" lean-forward="true" selection-start-line="22" selection-start-column="96" selection-end-line="22" selection-end-column="96" />
-          <folding>
-            <element signature="e#83#225#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/row.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+        <state relative-caret-position="391">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -588,21 +552,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/gameButtonsMenu.js">
+    <entry file="file://$PROJECT_DIR$/src/components/GameConstants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="138" column="13" lean-forward="true" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
+        <state relative-caret-position="34">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="e#83#225#0" />
+            <element signature="e#254#705#0" />
+            <element signature="e#734#868#0" />
+            <element signature="e#893#1060#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/gameBoard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-            <element signature="n#!!block;n#splitXY#0;n#GameButtonsMenu#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/row.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/square.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="54" column="43" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
+        <state relative-caret-position="1020">
+          <caret line="64" column="35" lean-forward="true" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="n#!!block;n#mapDispatchToProps#0" />
@@ -610,17 +596,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/actionTypes.js">
+    <entry file="file://$PROJECT_DIR$/src/components/codeButton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="24" />
+        <state relative-caret-position="17">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/actionCreators.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="25" />
+        <state relative-caret-position="399">
+          <caret line="51" column="19" lean-forward="true" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
           <folding>
             <element signature="n#!!block;n#updateCodeField#0" />
             <element signature="n#!!block;n#changeCodeButton#0" />
@@ -629,17 +618,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/gameButtonsMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="82" column="71" lean-forward="true" selection-start-line="82" selection-start-column="71" selection-end-line="82" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="n#!!block;n#splitXY#0;n#GameButtonsMenu#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="216" column="34" selection-start-line="216" selection-start-column="34" selection-end-line="216" selection-end-column="34" />
+        <state relative-caret-position="274">
+          <caret line="267" column="28" selection-start-line="267" selection-start-column="28" selection-end-line="267" selection-end-column="28" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#79#270#0" expanded="true" />
-            <element signature="e#2016#4150#0" />
-            <element signature="e#4196#5348#0" />
-            <element signature="e#5592#5608#0" />
-            <element signature="n#!!block;n#commandTransform#0" />
+            <element signature="e#1358#1487#0" />
+            <element signature="e#1459#2488#0" />
+            <element signature="e#3561#5695#0" />
+            <element signature="e#5741#6893#0" />
+            <element signature="e#6935#7579#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rocket.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/componentsStyles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+          <folding>
+            <element signature="e#88#115#0" />
+            <element signature="e#128#185#0" />
+            <element signature="e#195#223#0" />
           </folding>
         </state>
       </provider>

@@ -49,7 +49,7 @@ export class GameButtonsMenu extends  Component{
     calcNewState(){
         var erCode = [''];
         var newGameState = Object.assign({}, this.props.gameState);
-        var line = this.props.gameState.codeBoardRows[this.props.selectedRow];
+        var line = this.props.codeBoardRows[this.props.selectedRow];
 
         for (var i = 0; i < 8; i++){
             //0 - движение,
@@ -77,17 +77,17 @@ export class GameButtonsMenu extends  Component{
                         }
                         //y
                         if(line[i][0] === '↑'){
-                            newGameState[i][0] += line[i][1];
+                            newGameState[i][0] -= parseInt(line[i][1]);
                         }
                         if(line[i][0] === '↓'){
-                            newGameState[i][0] -= line[i][1];
+                            newGameState[i][0] += parseInt(line[i][1]);
                         }
                         //x
                         if(line[i][0] === '→'){
-                            newGameState[i][1] += line[i][1];
+                            newGameState[i][1] += parseInt(line[i][1]);
                         }
                         if(line[i][0] === '←'){
-                            newGameState[i][1] -= line[i][1];
+                            newGameState[i][1] -= parseInt(line[i][1]);
                         }
                     }
 

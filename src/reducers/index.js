@@ -20,7 +20,7 @@ const initialState = {
         ['','','r','s',''],
     ],
     codeBoardRows: [['А1','B1','C1','D1','А2','B2','А3','А4'],['←1','↓1','→1','←1','','','','']],
-    currentCodeRow: [1],
+    currentCodeRow: 1,
     N: [5], //columns x
     M: [5], //rows    y
     buttonValue: 'UP',
@@ -51,7 +51,12 @@ const initialState = {
     C1StartingPosition: [2, 2, 0, 0],
     D1StartingPosition: [2, 1, 0, 0],
 
-    gameBoardRowsStartingPosition: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
+    gameBoardRowsStartingPosition: [
+        ['','','','',''],
+        ['','A','B','',''],
+        ['','D','C','',''],
+        ['','','','',''],
+        ['','','r','s',''],],
 };
 const initialStateTestComposeRobo = {
     gameBoardRows: [
@@ -61,7 +66,7 @@ const initialStateTestComposeRobo = {
         ['','','','']
     ],
     codeBoardRows: [['А1','Б1','В1','Г1','А2','Б2','А3','А4'],['←1','↓1','→1','←1','','','','']],
-    currentCodeRow: 1,
+    currentCodeRow: [1],
     N: [4], //columns x
     M: [4], //rows    y
     buttonValue: 'UP',
@@ -258,13 +263,17 @@ function rootReducer(state = initialState, action) {
         }
     }
     if (action.type === MAKE_STEP) {
+        var currentRow = (state.currentCodeRow + 1);
+        if (currentRow === state.codeBoardRows.length)
+            currentRow -= 1;
         return {
             ...state,
             gameBoardRows: action.payload.field,
             A1: action.payload.a1,
             B1: action.payload.b1,
             C1: action.payload.c1,
-            D1: action.payload.d1
+            D1: action.payload.d1,
+            currentCodeRow: currentRow,
         }
     }
     if (action.type === RESET_BOARD) {
@@ -279,6 +288,7 @@ function rootReducer(state = initialState, action) {
             B2: [-1, -1, 0, 0],
             A3: [-1, -1, 0, 0],
             A4: [-1, -1, 0, 0],
+            currentCodeRow: 1,
         }
     }
     return state;

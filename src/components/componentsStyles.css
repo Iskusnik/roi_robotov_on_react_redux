@@ -77,10 +77,16 @@ ol, ul {
 }
 
 #rocket.divTableCell{
-    background-color: red;
+    background-color: grey;
+    color:white;
     //display: block;
     //width:  50%;
-    //background-image: ;
+    background-image: url('rocket.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-content: center;
+
 }
 #hole.divTableCell{
     background-color: black;
