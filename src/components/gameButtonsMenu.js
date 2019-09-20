@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './componentsStyles.css';
 import {tileNames, errorNames} from './GameConstants';
-import {loadGameField, makeStep} from "../actions/actionCreators";
+import {loadGameField, makeStep, resetBoard} from "../actions/actionCreators";
 
 const mapStateToProps = state => {
     return {
@@ -31,7 +31,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
     return {
         loadGameField: (field, a1,b1,c1,d1) => dispatch(loadGameField(field, a1,b1,c1,d1)),
-        makeStep:(field, a1,b1,c1,d1,a2,b2,a3,a4) => dispatch(makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4))
+        makeStep:(field, a1,b1,c1,d1,a2,b2,a3,a4) => dispatch(makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4)),
+        resetBoard:()=>dispatch(resetBoard()),
     };
 }
 
@@ -236,11 +237,22 @@ export class GameButtonsMenu extends  Component{
         }
     }
 
+
+    handleReset(e){
+        this.props.resetBoard()
+    }
     render() {
         return(
             <div>
-                <input type="file" onChange={(e)=> this.loadMap(e)}/>
-                <button onClick={(e)=> this.handleMakeStep(e)}/>
+                <input name="fileMap" type="file" onChange={(e)=> this.loadMap(e)} title={"Загрузить карту"} />
+
+                <button onClick={(e)=> this.handleMakeStep(e)}>
+                    Сделать шаг
+                </button>
+
+                <button onClick={(e)=> this.handleReset(e)}>
+                    В начало
+                </button>
             </div>
         )}
 

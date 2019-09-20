@@ -22,8 +22,9 @@ const mapStateToProps = state => {
 };
 
 const GameBoard = ({ rows, bots }) => (
-    <div className="divTable">
+    <div className="divTable" id="GAME">
         {rows.map((row, index) => {
+            //console.log(rows);
                 return <Row row={row} y={index} boardType={GAME} bots={bots}/>
         })}
     </div>

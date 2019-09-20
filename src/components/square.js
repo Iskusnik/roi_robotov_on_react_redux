@@ -55,19 +55,37 @@ class CodeSquare extends Component{
                 idIMG = 'robo';
                 val = this.props.bot.name
             }
-            if (this.props.value[0] === tileNames.rocket)
+
+            if (this.props.value[0] === tileNames.rocket){
                 idIMG = 'rocket';
-            if (this.props.value[0] === tileNames.storage)
+                //console.log(this.props.value);
+                val = 'T' + (this.props.value[3] - this.props.value[1]) + ' П' + (this.props.value[4] - this.props.value[2])
+            }
+
+            if (this.props.value[0] === tileNames.storage) {
                 idIMG = 'storage';
-            if (this.props.value[0] === tileNames.hole)
+                val = 'T' + this.props.value[1] +
+                     ' П' + this.props.value[2]
+            }
+
+            if (this.props.value[0] === tileNames.hole) {
                 idIMG = 'hole';
-            if (this.props.value[0] === tileNames.mountain)
+                val = '';
+            }
+
+            if (this.props.value[0] === tileNames.mountain){
                 idIMG = 'mountain';
+                val = '';
+            }
+
+
             return (
                 <div className="divTableCell" id = {idIMG}>
+                    <div>
                     {
                         val //+"x"+ this.props.x.toString() +"y"+ this.props.y.toString()
                     }
+                    </div>
                 </div>
             );
         }

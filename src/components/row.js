@@ -68,7 +68,8 @@ class Row extends Component {
         else
             return (
                 <div className="divTableRow">
-                    {this.props.row.map((sq, index) => {
+                    {
+                        this.props.row.map((sq, index) => {
                         return this.renderSquare(sq, index, this.props.y, this.props.boardType, this.props.bots)
                     })}
                 </div>

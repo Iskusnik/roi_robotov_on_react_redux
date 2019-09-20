@@ -19,7 +19,7 @@ const initialState = {
         ['','','','',''],
         ['','','r','s',''],
     ],
-    codeBoardRows: [['А1','B1','C1','D1','А2','B2','А3','А4'],['←1','↓1','→1','←1','','','','']],
+    codeBoardRows: [['А1','B1','C1','D1','А2','B2','А3','А4'],['←1','↓1','→1','←1','','','',''],['','','','','','','','']],
     currentCodeRow: 1,
     N: [5], //columns x
     M: [5], //rows    y
@@ -244,25 +244,25 @@ function rootReducer(state = initialState, action) {
     if (action.type === LOAD_GAME_FIELD) {
         var N = action.payload.field.length;
         var M = action.payload.field[0].length;
-
         return {
             ...state,
             N: N,
             M: M,
-            gameBoardRows: action.payload.field,
-            gameBoardRowsStartingPosition: action.payload.field,
+            gameBoardRows: Object.assign([],action.payload.field),
+            gameBoardRowsStartingPosition: Object.assign([],action.payload.field),
             A1: action.payload.a1,
             B1: action.payload.b1,
             C1: action.payload.c1,
             D1: action.payload.d1,
 
-            A1StartingPosition: action.payload.a1,
-            B1StartingPosition: action.payload.b1,
-            C1StartingPosition: action.payload.c1,
-            D1StartingPosition: action.payload.d1
+            A1StartingPosition: Object.assign({},action.payload.a1),
+            B1StartingPosition: Object.assign({},action.payload.b1),
+            C1StartingPosition: Object.assign({},action.payload.c1),
+            D1StartingPosition: Object.assign({},action.payload.d1)
         }
     }
     if (action.type === MAKE_STEP) {
+        //console.log(state.A1StartingPosition);
         var currentRow = (state.currentCodeRow + 1);
         if (currentRow === state.codeBoardRows.length)
             currentRow -= 1;
@@ -277,18 +277,21 @@ function rootReducer(state = initialState, action) {
         }
     }
     if (action.type === RESET_BOARD) {
+
         return {
             ...state,
-            gameBoardRows: state.gameBoardRowsStartingPosition,
-            A1: state.A1StartingPosition,
-            B1: state.B1StartingPosition,
-            C1: state.C1StartingPosition,
-            D1: state.D1StartingPosition,
+            gameBoardRows: Object.assign([],state.gameBoardRowsStartingPosition),
+            A1: Object.assign({},state.A1StartingPosition),
+            B1: Object.assign({},state.B1StartingPosition),
+            C1: Object.assign({},state.C1StartingPosition),
+            D1: Object.assign({},state.D1StartingPosition),
             A2: [-1, -1, 0, 0],
             B2: [-1, -1, 0, 0],
             A3: [-1, -1, 0, 0],
             A4: [-1, -1, 0, 0],
             currentCodeRow: 1,
+            paused: false,
+            playing: false,
         }
     }
     return state;
