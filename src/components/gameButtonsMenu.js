@@ -27,7 +27,16 @@ const mapStateToProps = state => {
         play: state.playing,
     };
 };
-
+const roboNames = {
+    0: 'A1',
+    1: 'B1',
+    2: 'C1',
+    3: 'D1',
+    4: 'A2',
+    5: 'B2',
+    6: 'A3',
+    7: 'A4',
+};
 function mapDispatchToProps(dispatch) {
     return {
         loadGameField: (field, a1,b1,c1,d1) => dispatch(loadGameField(field, a1,b1,c1,d1)),
@@ -44,8 +53,20 @@ export class GameButtonsMenu extends  Component{
     }
 
     handleMakeStep(){
-        var {field, a1,b1,c1,d1,a2,b2,a3,a4} = this.calcNewState()
-        this.props.makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4)
+        var {field, a1,b1,c1,d1,a2,b2,a3,a4,erCode} = this.calcNewState()
+
+        if(erCode == '')
+            this.props.makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4);
+        else{
+            console.log(erCode);
+
+            var result = 'ОШИБКА \n' + erCode.join('\n');
+
+            alert(result);
+            this.props.resetBoard();
+
+
+        }
     }
     calcNewState(){
         var erCode = [''];
@@ -53,49 +74,180 @@ export class GameButtonsMenu extends  Component{
         var line = this.props.codeBoardRows[this.props.selectedRow];
 
         for (var i = 0; i < 8; i++){
-            //0 - движение,
-            // 1 - загрузка/разгрузка,
-            // 2 - стык,
-            // 3 - расстык,
-            //-1 - бездействие
-            var t = -1;
 
-            //знак для загрузки/разгрузки
-            var sign = 0;
+            var y = newGameState[i][0];
+            var x = newGameState[i][1];
 
-            switch (line[i][0]) {
-                case '+': sign = 1; t = 1; break;
-                case '-': sign = -1; t = 1; break;
-                case 'с': t = 2; break;
-                case 'р': t = 3; break;
-                default: t = 0; break;
+            if (y === -1 && line[i] !== '') {
+                erCode.push(errorNames.unexpectedCommand + ' - ' + roboNames[i]);
             }
-            switch (t) {
-                case 0:{
-                    if(i < 4){
-                        if(line[i].length > 2) {
-                            erCode.push(errorNames.wrongCommand);
+            else{
+                //0 - движение,
+                // 1 - загрузка/разгрузка,
+                // 2 - стык,
+                // 3 - расстык,
+                //-1 - бездействие
+                var t = -1;
+
+                //знак для загрузки/разгрузки
+                var sign = 0;
+
+                switch (line[i][0]) {
+                    case '+': sign = 1; t = 1; break;
+                    case '-': sign = -1; t = 1; break;
+                    case 'с': t = 2; break;
+                    case 'р': t = 3; break;
+                    default: t = 0; break;
+                }
+                switch (t) {
+                    case 0:{
+                        if(i < 4){
+                            if(line[i].length > 2) {
+                                erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
+                            }
+                            //y
+                            if(line[i][0] === '↑'){
+                                newGameState[i][0] -= parseInt(line[i][1]);
+                            }
+                            if(line[i][0] === '↓'){
+                                newGameState[i][0] += parseInt(line[i][1]);
+                            }
+                            //x
+                            if(line[i][0] === '→'){
+                                newGameState[i][1] += parseInt(line[i][1]);
+                            }
+                            if(line[i][0] === '←'){
+                                newGameState[i][1] -= parseInt(line[i][1]);
+                            }
                         }
-                        //y
-                        if(line[i][0] === '↑'){
-                            newGameState[i][0] -= parseInt(line[i][1]);
+
+                        break;
+                    }
+                    case 1:{
+
+                        newGameState[i][3] = newGameState[i][3] + sign*parseInt(line[i][4]);
+
+                        newGameState[i][2] = newGameState[i][2] + sign*parseInt(line[i][2]);
+
+
+
+                        //Вне склада
+                        if(
+                            newGameState.gameBoardRows[y][x][0] !== tileNames.rocket &&
+                            newGameState.gameBoardRows[y][x][0] !== tileNames.storage
+                        ){
+                            erCode.push(errorNames.outOfStorage + ' - ' + roboNames[i]);
                         }
-                        if(line[i][0] === '↓'){
-                            newGameState[i][0] += parseInt(line[i][1]);
+                        else{
+                            newGameState.gameBoardRows[y][x][1] -= sign*parseInt(line[i][2]);
+                            newGameState.gameBoardRows[y][x][2] -= sign*parseInt(line[i][4]);
+
+                            if(
+                                newGameState.gameBoardRows[y][x][2] < 0 ||
+                                newGameState.gameBoardRows[y][x][1] < 0
+                            )
+                                erCode.push(errorNames.emptyStorage + ' - ' + roboNames[i]);
                         }
-                        //x
-                        if(line[i][0] === '→'){
-                            newGameState[i][1] += parseInt(line[i][1]);
+
+                        //Перегрузка
+                        if(
+                            i < 3 && (newGameState[i][2] + newGameState[i][3]) > 1 ||
+                            i < 6 && i >= 3 && (newGameState[i][2] + newGameState[i][3]) > 3 ||
+                            i < 7 && i >= 6 && (newGameState[i][2] + newGameState[i][3]) > 5 ||
+                            i === 7 && (newGameState[i][2] + newGameState[i][3]) > 8
+                        ){
+                            erCode.push(errorNames.overload + ' - ' + roboNames[i]);
                         }
-                        if(line[i][0] === '←'){
-                            newGameState[i][1] -= parseInt(line[i][1]);
+//Перегрузка
+                        if(
+                            newGameState[i][2] < 0 ||
+                            newGameState[i][3] < 0
+                        ){
+                            erCode.push(errorNames.empty + ' - ' + roboNames[i]);
                         }
+
+
+
+
+
+                        break;
                     }
 
-                    break;
+                    case 2:{
+                        var bot = -1;
+                        for (var j = 0; j < 8; j++){
+                            if(
+                                this.props.gameState[j][0] === y &&
+                                this.props.gameState[j][1] === x + 1
+                            )
+                                bot = j;
+                        }
+                        if(bot !== -1){
+                            if(line[j] !== '')
+                                erCode.push(errorNames.connectionErrorMove + ' - ' + roboNames[j]);
+                            else
+                                if(
+                                    (newGameState[i][2] + newGameState[i][3]) !== 0 &&
+                                    (newGameState[j][2] + newGameState[j][3]) !== 0
+                                )
+                                    erCode.push(errorNames.connectionErrorLoad + ' - ' + roboNames[i] + ' - ' + roboNames[j]);
+                                else{
+
+                                    var botLsize = 4, botRsize = 1, botNewSize = 0;
+
+                                    if (i < 4)
+                                        botLsize = 1;
+                                    if (i > 3 && i < 6)
+                                        botLsize = 2;
+                                    if (i === 6)
+                                        botLsize = 3;
+
+                                    if (j > 3 && j < 6)
+                                        botRsize = 2;
+                                    if (j === 6)
+                                        botRsize = 3;
+
+                                    if(botLsize === 4)
+                                        erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
+                                    else {
+                                        botNewSize = botLsize + botRsize;
+                                        newGameState[i][0] = -1;
+                                        newGameState[i][1] = -1;
+                                        newGameState[j][0] = -1;
+                                        newGameState[j][1] = -1;
+
+                                        switch (botNewSize) {
+                                            case 2:
+                                                if(1)
+                                                newGameState[6] = [y, x+1, 0, 0, roboNames[i] + roboNames[j]];
+
+                                                break;
+                                            case 3:
+                                                newGameState[6]= [y, x+1, 0, 0, ];
+
+                                                break;
+                                            case 4: break;
+                                        }
+                                    }
+                                }
+                        }
+                        else
+                            erCode.push(errorNames.connectionErrorPlace + ' - ' + roboNames[i]);
+
+
+
+
+
+
+
+
+
+
+
+                        break;
+                    }
                 }
             }
-
         }
         return {
             field:newGameState.gameBoardRows,
@@ -110,13 +262,7 @@ export class GameButtonsMenu extends  Component{
             erCode: erCode
         };
     }
-    //Есть ошибка - код ошибки
-    //Нет ошибки - ''
-    errorCheck(newGameState){
-        var erCode = [''];
 
-        return erCode
-    }
 
     loadMap(e){
         var file = e.target.files[0];

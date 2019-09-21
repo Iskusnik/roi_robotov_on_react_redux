@@ -84,8 +84,9 @@ ol, ul {
 }
 
 #rocket.divTableCell{
-    background-color: darkblue;
-    color: gold;
+    background-color: whitesmoke;
+    color: black;
+    font-weight: bold;
     //display: block;
     //width:  50%;
     position: relative;
@@ -106,12 +107,21 @@ ol, ul {
 //background-image: ;
 }
 #storage.divTableCell{
-    background-color: goldenrod;
-//background-image: ;
+    background-color: ghostwhite;
+    color: black;
+    font-weight: bold;
+//display: block;
+//width:  50%;
+    position: relative;
+    background-image: url('storage.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-content: center;
 }
 
 #mountain.divTableCell{
-    background-color: grey;
+    background-color: white;
     color: darkorange;
 //display: block;
 //width:  50%;

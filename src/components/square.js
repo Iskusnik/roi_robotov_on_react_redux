@@ -11,9 +11,6 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-function renderCommand(str) {
-
-}
 
 class CodeSquare extends Component{
     constructor() {
@@ -39,14 +36,26 @@ class CodeSquare extends Component{
                         </button>
                     </div>
                 );
-            else
-                return (
-                    <div className="divTableCell">
-                        {
-                            this.props.value
-                        }
-                    </div>
-                );
+            else{
+                //console.log(this.props)
+                if(this.props.bot.exist >= 0)
+                    return (
+                        <div className="divTableCell">
+                            {
+                                this.props.value + ' (Т' + this.props.bot.fuel + ' П'+ this.props.bot.food + ')'
+                            }
+                        </div>
+                    );
+                else
+                    return (
+                        <div className="divTableCell" style={{ backgroundColor: 'grey'}}>
+                            {
+                                this.props.value + ' (Т' + this.props.bot.fuel + ' П'+ this.props.bot.food + ')'
+                            }
+                        </div>
+                    );
+            }
+
         }
         else {
             var idIMG = '';

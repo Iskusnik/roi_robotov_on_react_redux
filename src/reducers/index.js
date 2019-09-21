@@ -17,7 +17,7 @@ const initialState = {
         ['','A','B','',''],
         ['','D','C','',''],
         ['','','','',''],
-        ['','','r','s',''],
+        ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
     ],
     codeBoardRows: [['А1','B1','C1','D1','А2','B2','А3','А4'],['←1','↓1','→1','←1','','','',''],['','','','','','','','']],
     currentCodeRow: 1,
@@ -34,7 +34,7 @@ const initialState = {
         jump2:{dir:'', size:1},
         jump3:{dir:'', size:1},
     },
-    //y,x,food,fuel
+    //y,x,fuel,food
     A1: [1, 1, 0, 0],
     B1: [1, 2, 0, 0],
     C1: [2, 2, 0, 0],
@@ -51,12 +51,13 @@ const initialState = {
     C1StartingPosition: [2, 2, 0, 0],
     D1StartingPosition: [2, 1, 0, 0],
 
-    gameBoardRowsStartingPosition: [
-        ['','','','',''],
-        ['','A','B','',''],
-        ['','D','C','',''],
-        ['','','','',''],
-        ['','','r','s',''],],
+    gameBoardRowsStartingPosition:[
+    ['','','','',''],
+    ['','A','B','',''],
+    ['','D','C','',''],
+    ['','','','',''],
+    ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
+],
 };
 const initialStateTestComposeRobo = {
     gameBoardRows: [
@@ -280,7 +281,7 @@ function rootReducer(state = initialState, action) {
 
         return {
             ...state,
-            gameBoardRows: Object.assign([],state.gameBoardRowsStartingPosition),
+            gameBoardRows: JSON.parse(JSON.stringify(state.gameBoardRowsStartingPosition)),//Object.assign([],state.gameBoardRowsStartingPosition),
             A1: Object.assign({},state.A1StartingPosition),
             B1: Object.assign({},state.B1StartingPosition),
             C1: Object.assign({},state.C1StartingPosition),

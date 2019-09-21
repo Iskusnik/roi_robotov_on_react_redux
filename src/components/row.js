@@ -34,14 +34,24 @@ class Row extends Component {
             }
 
 
-
+        if (boardType === CODE && bots !== undefined){
+            //console.log(bots)
+                return (
+                    <Square
+                        value={val}
+                        x={x}
+                        y={y}
+                        boardType={boardType}
+                        bot={{isBot:false, fuel: bots[x][2], food: bots[x][3], exist: bots[x][0]}}
+                    />);
+        }
         return (
             <Square
                 value={val}
                 x={x}
                 y={y}
                 boardType={boardType}
-                bot={{isBot:false, name:-1}}
+                bot={{isBot:false, name:''}}
             />);
     }
 
@@ -50,7 +60,7 @@ class Row extends Component {
                 return (
                     <div className="divTableHeading">
                         {this.props.row.map((sq, index) => {
-                            return this.renderSquare(sq, index, this.props.y, this.props.boardType)
+                            return this.renderSquare(sq, index, this.props.y, this.props.boardType, this.props.bots)
                         })}
                     </div>
                 );
