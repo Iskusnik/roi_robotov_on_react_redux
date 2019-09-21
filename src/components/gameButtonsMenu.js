@@ -36,6 +36,10 @@ const roboNames = {
     5: 'B2',
     6: 'A3',
     7: 'A4',
+    'A1': 0,
+    'B1': 1,
+    'C1': 2,
+    'D1': 3,
 };
 function mapDispatchToProps(dispatch) {
     return {
@@ -75,8 +79,8 @@ export class GameButtonsMenu extends  Component{
 
         for (var i = 0; i < 8; i++){
 
-            var y = newGameState[i][0];
-            var x = newGameState[i][1];
+            var y = this.props.gameState[i][0];
+            var x = this.props.gameState[i][1];
 
             if (y === -1 && line[i] !== '') {
                 erCode.push(errorNames.unexpectedCommand + ' - ' + roboNames[i]);
@@ -174,17 +178,19 @@ export class GameButtonsMenu extends  Component{
                     }
 
                     case 2:{
-                        var bot = -1;
-                        for (var j = 0; j < 8; j++){
+                        var j = -1;
+                        for (var t = 0; t < 8; t++){
                             if(
-                                this.props.gameState[j][0] === y &&
-                                this.props.gameState[j][1] === x + 1
+                                this.props.gameState[t][0] === y &&
+                                this.props.gameState[t][1] === x + 1
                             )
-                                bot = j;
+                                j = t;
                         }
-                        if(bot !== -1){
-                            if(line[j] !== '')
+                        if(j !== -1){
+                            if(line[j] != ''){
+                                console.log(i + ' ' + j)
                                 erCode.push(errorNames.connectionErrorMove + ' - ' + roboNames[j]);
+                            }
                             else
                                 if(
                                     (newGameState[i][2] + newGameState[i][3]) !== 0 &&
@@ -218,31 +224,87 @@ export class GameButtonsMenu extends  Component{
 
                                         switch (botNewSize) {
                                             case 2:
-                                                if(1)
-                                                newGameState[6] = [y, x+1, 0, 0, roboNames[i] + roboNames[j]];
-
+                                                if(newGameState[4][0] === -1)
+                                                    newGameState[4] = [y, x+1, 0, 0, roboNames[i] + '_' + roboNames[j]];
+                                                else
+                                                    newGameState[5] = [y, x+1, 0, 0, roboNames[i] + '_' + roboNames[j]];
                                                 break;
                                             case 3:
-                                                newGameState[6]= [y, x+1, 0, 0, ];
+                                                var name = '';
+                                                if(i > 3)
+                                                    name += '_' + newGameState[i][4];
+                                                else
+                                                    name += '_' + roboNames[i];
 
+                                                if(j > 3)
+                                                    name += '_' + newGameState[j][4];
+                                                else
+                                                    name += '_' + roboNames[j];
+
+                                                newGameState[6]= [y, x+1, 0, 0, name];
                                                 break;
-                                            case 4: break;
+                                            case 4:
+                                                var name = '';
+                                                if(i > 3)
+                                                    name += '_' + newGameState[i][4];
+                                                else
+                                                    name += '_' + roboNames[i];
+
+                                                if(j > 3)
+                                                    name += '_' + newGameState[j][4];
+                                                else
+                                                    name += '_' + roboNames[j];
+
+                                                newGameState[7]= [y, x+1, 0, 0, name];
+                                                break;
                                         }
                                     }
                                 }
                         }
                         else
+                            erCode.push(errorNames.connectionErrorNone + roboNames[i]);
+
+
+
+
+
+
+
+
+
+
+
+                        break;
+                    }
+
+                    case 3:{
+                        if(x + 1 === newGameState.N)
                             erCode.push(errorNames.connectionErrorPlace + ' - ' + roboNames[i]);
+                        else
+                            if(this.props.gameState.gameBoardRows[y][x+1] !== '')
+                                erCode.push(errorNames.connectionErrorPlace + ' - ' + roboNames[i]);
+                            else
+                                if(i < 3)
+                                    erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
+                                else
+                                {
+                                    //console.log(i);
+                                    //console.log(roboNames[newGameState[i][4].split('_')[0]]);
+                                    //console.log(newGameState[i][4]);
+                                    var bots = newGameState[i][4].split('_');
+                                    var s = bots.length - 1;
+                                    var newBot = roboNames[bots[0]];
+                                    //console.log(newBot)
 
+                                    newGameState[i] = [-1, -1, 0, 0];
+                                    newGameState[newBot] = [y, x + 1, 0, 0];
 
-
-
-
-
-
-
-
-
+                                    switch (s) {
+                                        case 1: newGameState[roboNames[bots[1]]] = [y, x, 0, 0]; break;
+                                        case 2: newGameState[5] = [y, x, 0, 0, bots[1] + '_' + bots[2]]; break;
+                                        case 3: newGameState[6] = [y, x, 0, 0,  bots[1] + '_' + bots[2] + '_' + bots[3]]; break;
+                                    }
+                                }
 
                         break;
                     }

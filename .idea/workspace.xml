@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81edc678-cf11-4dfa-8065-632b6c0f18a0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/storage.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/GameConstants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GameConstants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/codeBoard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/codeBoard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/componentsStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/componentsStyles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/gameButtonsMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/gameButtonsMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rocket.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rocket.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/row.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/row.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/square.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/square.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -30,11 +24,11 @@
       <file pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/gameButtonsMenu.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="220" column="52" selection-start-line="220" selection-start-column="52" selection-end-line="220" selection-end-column="52" />
+            <state relative-caret-position="-1188">
+              <caret line="82" column="47" selection-start-line="82" selection-start-column="47" selection-end-line="82" selection-end-column="47" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#835#1014#0" />
+                <element signature="e#835#945#0" />
                 <element signature="e#3713#4466#0" />
                 <element signature="n#!!block;n#splitXY#0;n#GameButtonsMenu#0" />
               </folding>
@@ -42,13 +36,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3502">
-              <caret line="281" column="16" lean-forward="true" selection-start-line="281" selection-start-column="16" selection-end-line="281" selection-end-column="16" />
+            <state relative-caret-position="136">
+              <caret line="64" column="22" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#349#1554#0" />
+                <element signature="e#1563#2594#0" />
                 <element signature="n#!!block;n#commandTransform#0" />
                 <element signature="n#!!block;n#makeStep#0" />
               </folding>
@@ -59,13 +55,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/GameConstants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+            <state relative-caret-position="374">
+              <caret line="22" column="16" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/square.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
@@ -135,11 +131,11 @@
         <option value="$PROJECT_DIR$/src/components/gameBoard.js" />
         <option value="$PROJECT_DIR$/src/components/codeBoard.js" />
         <option value="$PROJECT_DIR$/src/components/componentsStyles.css" />
-        <option value="$PROJECT_DIR$/src/reducers/index.js" />
-        <option value="$PROJECT_DIR$/src/components/GameConstants.js" />
-        <option value="$PROJECT_DIR$/src/components/gameButtonsMenu.js" />
         <option value="$PROJECT_DIR$/src/components/row.js" />
         <option value="$PROJECT_DIR$/src/components/square.js" />
+        <option value="$PROJECT_DIR$/src/components/GameConstants.js" />
+        <option value="$PROJECT_DIR$/src/components/gameButtonsMenu.js" />
+        <option value="$PROJECT_DIR$/src/reducers/index.js" />
       </list>
     </option>
   </component>
@@ -271,7 +267,7 @@
       <workItem from="1568709440611" duration="4494000" />
       <workItem from="1568896784227" duration="9570000" />
       <workItem from="1568998008856" duration="4042000" />
-      <workItem from="1569010510724" duration="26856000" />
+      <workItem from="1569010510724" duration="32839000" />
     </task>
     <task id="LOCAL-00001" summary="Функция для обнавления массива">
       <created>1567090952660</created>
@@ -350,11 +346,18 @@
       <option name="project" value="LOCAL" />
       <updated>1569001462829</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Добавлены действия для обработки команд">
+      <created>1569104006900</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1569104006900</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222147000" />
+    <option name="totallyTimeSpent" value="228130000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -430,9 +433,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/gameButtonsMenu.js</url>
-          <line>158</line>
+          <line>162</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/gameButtonsMenu.js</url>
+          <line>283</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -572,38 +581,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3502">
-          <caret line="281" column="16" lean-forward="true" selection-start-line="281" selection-start-column="16" selection-end-line="281" selection-end-column="16" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#commandTransform#0" />
-            <element signature="n#!!block;n#makeStep#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/GameConstants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/gameButtonsMenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="220" column="52" selection-start-line="220" selection-start-column="52" selection-end-line="220" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#835#1014#0" />
-            <element signature="e#3713#4466#0" />
-            <element signature="n#!!block;n#splitXY#0;n#GameButtonsMenu#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/row.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -632,6 +609,40 @@
           <caret line="36" column="26" lean-forward="true" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/gameButtonsMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1188">
+          <caret line="82" column="47" selection-start-line="82" selection-start-column="47" selection-end-line="82" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#835#945#0" />
+            <element signature="e#3713#4466#0" />
+            <element signature="n#!!block;n#splitXY#0;n#GameButtonsMenu#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/GameConstants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="64" column="22" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#349#1554#0" />
+            <element signature="e#1563#2594#0" />
+            <element signature="n#!!block;n#commandTransform#0" />
+            <element signature="n#!!block;n#makeStep#0" />
           </folding>
         </state>
       </provider>

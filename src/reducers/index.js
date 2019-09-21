@@ -59,6 +59,54 @@ const initialState = {
     ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
 ],
 };
+const initialStateSplitConnect = {
+    gameBoardRows: [
+        ['','','','',''],
+        ['','A','B','m',''],
+        ['','D','C','',''],
+        ['','','','',''],
+        ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
+    ],
+    codeBoardRows: [['А1','B1','C1','D1','А2','B2','А3','А4'],['стык','','→1','←1','','','',''],['','','','','расстык','','','']],
+    currentCodeRow: 1,
+    N: [5], //columns x
+    M: [5], //rows    y
+    buttonValue: 'UP',
+    moveSize:1,
+    foodSizeLoad:0,
+    fuelSizeLoad:0,
+    foodSizeUnload:0,
+    fuelSizeUnload:0,
+    moveValue:{
+        jump1:{dir:'', size:1},
+        jump2:{dir:'', size:1},
+        jump3:{dir:'', size:1},
+    },
+    //y,x,fuel,food
+    A1: [1, 1, 0, 0],
+    B1: [1, 2, 0, 0],
+    C1: [2, 2, 0, 0],
+    D1: [2, 1, 0, 0],
+    A2: [-1, -1, 0, 0],
+    B2: [-1, -1, 0, 0],
+    A3: [-1, -1, 0, 0],
+    A4: [-1, -1, 0, 0],
+    paused: false,
+    playing: false,
+
+    A1StartingPosition: [1, 1, 0, 0],
+    B1StartingPosition: [1, 2, 0, 0],
+    C1StartingPosition: [2, 2, 0, 0],
+    D1StartingPosition: [2, 1, 0, 0],
+
+    gameBoardRowsStartingPosition:[
+        ['','','','',''],
+        ['','A','B','',''],
+        ['','D','C','',''],
+        ['','','','',''],
+        ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
+    ],
+};
 const initialStateTestComposeRobo = {
     gameBoardRows: [
         ['','','',''],
@@ -101,7 +149,7 @@ const initialStateTestComposeRobo = {
     gameBoardRowsStartingPosition: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
 };
 
-function rootReducer(state = initialState, action) {
+function rootReducer(state = initialStateSplitConnect, action) {
     if (action.type === UPDATE_CODE_FIELD) {
 
         const newEmptyRow = ['','','','','','','',''];
@@ -274,6 +322,11 @@ function rootReducer(state = initialState, action) {
             B1: action.payload.b1,
             C1: action.payload.c1,
             D1: action.payload.d1,
+
+            A2: action.payload.a2,
+            B2: action.payload.b2,
+            A3: action.payload.a3,
+            A4: action.payload.a4,
             currentCodeRow: currentRow,
         }
     }
