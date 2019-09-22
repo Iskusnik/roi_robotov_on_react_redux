@@ -10,6 +10,9 @@ export const LOAD_GAME_FIELD = 'LOAD_GAME_FIELD';
 
 export const MAKE_STEP = 'MAKE_STEP';
 export const RESET_BOARD = 'RESET_BOARD';
+export const STEP_BACK = 'STEP_BACK';
+
+
 
 export const GENERATE_GAME_FIELD = 'GENERATE_GAME_FIELD';
 export const UPDATE_GAME_FIELD = 'UPDATE_GAME_FIELD';

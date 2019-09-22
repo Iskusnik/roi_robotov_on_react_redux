@@ -1,4 +1,4 @@
-import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE, LOAD_GAME_FIELD, MAKE_STEP, RESET_BOARD} from "./actionTypes";
+import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE, LOAD_GAME_FIELD, MAKE_STEP, RESET_BOARD, STEP_BACK} from "./actionTypes";
 
 
 
@@ -75,6 +75,12 @@ export function makeStep(field, a1, b1, c1, d1, a2, b2, a3, a4) {
 export function resetBoard() {
     return({
         type: RESET_BOARD,
+    })
+}
+
+export function stepBack() {
+    return({
+        type: STEP_BACK,
     })
 }
 /*

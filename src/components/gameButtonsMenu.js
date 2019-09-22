@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './componentsStyles.css';
 import {tileNames, errorNames} from './GameConstants';
-import {loadGameField, makeStep, resetBoard} from "../actions/actionCreators";
+import {loadGameField, makeStep, resetBoard, stepBack} from "../actions/actionCreators";
 
 const mapStateToProps = state => {
     return {
@@ -21,8 +21,8 @@ const mapStateToProps = state => {
 
         codeBoardRows: state.codeBoardRows,
         selectedRow: state.currentCodeRow,
-        N: state.N, //columns
-        M: state.M, //rows
+        N: state.N, //rows, y
+        M: state.M, //columns, x
         pause: state.paused,
         play: state.playing,
     };
@@ -46,6 +46,7 @@ function mapDispatchToProps(dispatch) {
         loadGameField: (field, a1,b1,c1,d1) => dispatch(loadGameField(field, a1,b1,c1,d1)),
         makeStep:(field, a1,b1,c1,d1,a2,b2,a3,a4) => dispatch(makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4)),
         resetBoard:()=>dispatch(resetBoard()),
+        stepBack:()=>dispatch(stepBack()),
     };
 }
 
@@ -58,6 +59,8 @@ export class GameButtonsMenu extends  Component{
 
     handleMakeStep(){
         var {field, a1,b1,c1,d1,a2,b2,a3,a4,erCode} = this.calcNewState()
+
+        //console.log(this.props.gameState["0"])
 
         if(erCode == '')
             this.props.makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4);
@@ -74,18 +77,19 @@ export class GameButtonsMenu extends  Component{
     }
     calcNewState(){
         var erCode = [''];
-        var newGameState = Object.assign({}, this.props.gameState);
+        var newGameState = JSON.parse(JSON.stringify(this.props.gameState));
         var line = this.props.codeBoardRows[this.props.selectedRow];
 
-        for (var i = 0; i < 8; i++){
+        for(var i = 0; i < 8; i++){
 
-            var y = this.props.gameState[i][0];
-            var x = this.props.gameState[i][1];
+            var y = Object.assign({},this.props.gameState[i][0]);
+            var x = Object.assign({},this.props.gameState[i][1]);
 
             if (y === -1 && line[i] !== '') {
                 erCode.push(errorNames.unexpectedCommand + ' - ' + roboNames[i]);
             }
-            else{
+            else
+                if (y !== -1 && line[i] !== ''){
                 //0 - движение,
                 // 1 - загрузка/разгрузка,
                 // 2 - стык,
@@ -105,25 +109,368 @@ export class GameButtonsMenu extends  Component{
                 }
                 switch (t) {
                     case 0:{
-                        if(i < 4){
-                            if(line[i].length > 2) {
+                        if(i < 6){
+                            if(line[i].length > 2 ||
+                                (parseInt(line[i][1]) > 1 && i < 4) ||
+                                parseInt(line[i][1]) > 3 ||
+                                line[i][0] === '↖' ||
+                                line[i][0] === '↗' ||
+                                line[i][0] === '↘' ||
+                                line[i][0] === '↙'
+                            ) {
                                 erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
                             }
-                            //y
-                            if(line[i][0] === '↑'){
-                                newGameState[i][0] -= parseInt(line[i][1]);
-                            }
-                            if(line[i][0] === '↓'){
-                                newGameState[i][0] += parseInt(line[i][1]);
-                            }
-                            //x
-                            if(line[i][0] === '→'){
-                                newGameState[i][1] += parseInt(line[i][1]);
-                            }
-                            if(line[i][0] === '←'){
-                                newGameState[i][1] -= parseInt(line[i][1]);
+
+                            var moveSize = parseInt(line[i][1]);
+                            for(var cell = 0; cell < moveSize; cell++){
+                                //y
+                                if(line[i][0] === '↑'){
+                                    newGameState[i][0] -= 1;
+                                }
+                                if(line[i][0] === '↓'){
+                                    newGameState[i][0] += 1;
+                                }
+                                //x
+                                if(line[i][0] === '→'){
+                                    newGameState[i][1] += 1;
+                                }
+                                if(line[i][0] === '←'){
+                                    newGameState[i][1] -= 1;
+                                }
+
+                                var xNew = newGameState[i][1];
+                                var yNew = newGameState[i][0];
+
+                                if(
+                                    xNew >= this.props.M || xNew < 0 ||
+                                    yNew >= this.props.N || yNew < 0
+                                ) {
+                                    erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                                }
+                                else
+                                    if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.mountain) {
+                                        erCode.push(errorNames.roboMount + ' - ' + roboNames[i]);
+                                    }
                             }
                         }
+                        else if(i === 6){
+                            if(
+                                line[i].length > 4 ||
+                                line[i][0] === '↖' ||
+                                line[i][0] === '↗' ||
+                                line[i][0] === '↘' ||
+                                line[i][0] === '↙'
+                            ) {
+                                erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
+                            }
+
+                            var moveSize1 = parseInt(line[i][1]);
+                            var moveSize2 = 0;
+                            var xNew = 0;
+                            var yNew = 0;
+
+                            //первая часть движения
+                            for(var cell = 0; cell < moveSize1; cell++){
+                                //y
+                                if(line[i][0] === '↑'){
+                                    newGameState[i][0] -= 1;
+                                }
+                                if(line[i][0] === '↓'){
+                                    newGameState[i][0] += 1;
+                                }
+                                //x
+                                if(line[i][0] === '→'){
+                                    newGameState[i][1] += 1;
+                                }
+                                if(line[i][0] === '←'){
+                                    newGameState[i][1] -= 1;
+                                }
+
+                                xNew = newGameState[i][1];
+                                yNew = newGameState[i][0];
+
+                                if(
+                                    xNew >= this.props.M || xNew < 0 ||
+                                    yNew >= this.props.N || yNew < 0
+                                ) {
+                                    erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                                }
+                                else
+                                    if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.mountain) {
+                                        erCode.push(errorNames.roboMount + ' - ' + roboNames[i]);
+                                    }
+
+                            }
+
+                            if(
+                                xNew >= this.props.M || xNew < 0 ||
+                                yNew >= this.props.N || yNew < 0
+                            ) {
+                                erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                            }else//промежуточная проверка на поворот в яме
+                                if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.hole) {
+                                    erCode.push(errorNames.roboFall + ' - ' + roboNames[i]);
+                                }
+                            //вторая, если существует
+                            if(line[i].length > 2){
+                                if(
+                                    line[i][2] === '↖' ||
+                                    line[i][2] === '↗' ||
+                                    line[i][2] === '↘' ||
+                                    line[i][2] === '↙'
+                                ) {
+                                    erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
+                                }
+                                moveSize2 = parseInt(line[i][3]);
+                                for(var cell = 0; cell < moveSize2; cell++){
+                                    //y
+                                    if(line[i][2] === '↑'){
+                                        newGameState[i][0] -= 1;
+                                    }
+                                    if(line[i][2] === '↓'){
+                                        newGameState[i][0] += 1;
+                                    }
+                                    //x
+                                    if(line[i][2] === '→'){
+                                        newGameState[i][1] += 1;
+                                    }
+                                    if(line[i][2] === '←'){
+                                        newGameState[i][1] -= 1;
+                                    }
+
+                                    xNew = newGameState[i][1];
+                                    yNew = newGameState[i][0];
+
+                                    if(
+                                        xNew >= this.props.M || xNew < 0 ||
+                                        yNew >= this.props.N || yNew < 0
+                                    ) {
+                                        erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                                    }
+                                    else
+                                        if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.mountain) {
+                                            erCode.push(errorNames.roboMount + ' - ' + roboNames[i]);
+                                        }
+
+                                }
+                            }
+
+                            //проверка на превышение длины движения роботом
+                            if((moveSize2 + moveSize1) > 5){
+                                erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
+                            }
+                        }
+                        else if(i === 7){
+
+                            var moveSize1 = parseInt(line[i][1]);
+                            var moveSize2 = 0;
+                            var moveSize3 = 0;
+                            var xNew = 0;
+                            var yNew = 0;
+
+                            //первая часть движения
+                            for(var cell = 0; cell < moveSize1; cell++){
+                                //y
+                                if(line[i][0] === '↑'){
+                                    newGameState[i][0] -= 1;
+                                }
+                                if(line[i][0] === '↓'){
+                                    newGameState[i][0] += 1;
+                                }
+                                //x
+                                if(line[i][0] === '→'){
+                                    newGameState[i][1] += 1;
+                                }
+                                if(line[i][0] === '←'){
+                                    newGameState[i][1] -= 1;
+                                }
+
+                                //Диагонали
+                                if(line[i][0] === '↖'){
+                                    newGameState[i][1] -= 1;
+                                    newGameState[i][0] -= 1;
+                                }
+                                if(line[i][0] === '↗'){
+                                    newGameState[i][1] += 1;
+                                    newGameState[i][0] -= 1;
+                                }
+                                if(line[i][0] === '↙'){
+                                    newGameState[i][1] -= 1;
+                                    newGameState[i][0] += 1;
+                                }
+                                if(line[i][0] === '↘'){
+                                    newGameState[i][1] += 1;
+                                    newGameState[i][0] += 1;
+                                }
+                                xNew = newGameState[i][1];
+                                yNew = newGameState[i][0];
+
+                                if(
+                                    xNew >= this.props.M || xNew < 0 ||
+                                    yNew >= this.props.N || yNew < 0
+                                ) {
+                                    erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                                }
+                                else
+                                    if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.mountain) {
+                                        erCode.push(errorNames.roboMount + ' - ' + roboNames[i]);
+                                    }
+
+                            }
+
+                            //промежуточная проверка на поворот в яме
+                            if(
+                                xNew >= this.props.M || xNew < 0 ||
+                                yNew >= this.props.N || yNew < 0
+                            ) {
+                                erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                            }else
+                                if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.hole) {
+                                erCode.push(errorNames.roboFall + ' - ' + roboNames[i]);
+                            }
+
+                            //вторая, если существует
+                            if(line[i].length > 2){
+
+                                moveSize2 = parseInt(line[i][3]);
+                                for(var cell = 0; cell < moveSize2; cell++){
+                                    //y
+                                    if(line[i][2] === '↑'){
+                                        newGameState[i][0] -= moveSize2;
+                                    }
+                                    if(line[i][2] === '↓'){
+                                        newGameState[i][0] += moveSize2;
+                                    }
+                                    //x
+                                    if(line[i][2] === '→'){
+                                        newGameState[i][1] += moveSize2;
+                                    }
+                                    if(line[i][2] === '←'){
+                                        newGameState[i][1] -= moveSize2;
+                                    }
+
+                                    //Диагонали
+                                    if(line[i][2] === '↖'){
+                                        newGameState[i][1] -= 1;
+                                        newGameState[i][0] -= 1;
+                                    }
+                                    if(line[i][2] === '↗'){
+                                        newGameState[i][1] += 1;
+                                        newGameState[i][0] -= 1;
+                                    }
+                                    if(line[i][2] === '↙'){
+                                        newGameState[i][1] -= 1;
+                                        newGameState[i][0] += 1;
+                                    }
+                                    if(line[i][2] === '↘'){
+                                        newGameState[i][1] += 1;
+                                        newGameState[i][0] += 1;
+                                    }
+                                    xNew = newGameState[i][1];
+                                    yNew = newGameState[i][0];
+
+                                    if(
+                                        xNew >= this.props.M || xNew < 0 ||
+                                        yNew >= this.props.N || yNew < 0
+                                    ) {
+                                        erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                                    }
+                                    else
+                                        if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.mountain) {
+                                            erCode.push(errorNames.roboMount + ' - ' + roboNames[i]);
+                                        }
+                                }
+                            }
+
+                            if(
+                                xNew >= this.props.M || xNew < 0 ||
+                                yNew >= this.props.N || yNew < 0
+                            ) {
+                                erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                            }else//промежуточная проверка на поворот в яме
+                                if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.hole) {
+                                    erCode.push(errorNames.roboFall + ' - ' + roboNames[i]);
+                                }
+
+                            //вторая, если существует
+                            if(line[i].length > 4){
+
+                                moveSize3 = parseInt(line[i][5]);
+                                for(var cell = 0; cell < moveSize2; cell++){
+                                    //y
+                                    if(line[i][4] === '↑'){
+                                        newGameState[i][0] -= moveSize2;
+                                    }
+                                    if(line[i][4] === '↓'){
+                                        newGameState[i][0] += moveSize2;
+                                    }
+                                    //x
+                                    if(line[i][4] === '→'){
+                                        newGameState[i][1] += moveSize2;
+                                    }
+                                    if(line[i][4] === '←'){
+                                        newGameState[i][1] -= moveSize2;
+                                    }
+
+                                    //Диагонали
+                                    if(line[i][4] === '↖'){
+                                        newGameState[i][1] -= 1;
+                                        newGameState[i][0] -= 1;
+                                    }
+                                    if(line[i][4] === '↗'){
+                                        newGameState[i][1] += 1;
+                                        newGameState[i][0] -= 1;
+                                    }
+                                    if(line[i][4] === '↙'){
+                                        newGameState[i][1] -= 1;
+                                        newGameState[i][0] += 1;
+                                    }
+                                    if(line[i][4] === '↘'){
+                                        newGameState[i][1] += 1;
+                                        newGameState[i][0] += 1;
+                                    }
+                                    xNew = newGameState[i][1];
+                                    yNew = newGameState[i][0];
+
+                                    if(
+                                        xNew >= this.props.M || xNew < 0 ||
+                                        yNew >= this.props.N || yNew < 0
+                                    ) {
+                                        erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                                    }
+                                    else
+                                    if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.mountain) {
+                                        erCode.push(errorNames.roboMount + ' - ' + roboNames[i]);
+                                    }
+                                }
+                            }
+
+                            //проверка на превышение длины движения роботом
+                            if((moveSize3 + moveSize2 + moveSize1) > 8){
+                                erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
+                            }
+                        }
+
+
+                        /*
+                                                var xNew = newGameState[i][1];
+                                                var yNew = newGameState[i][0];
+
+                                                //проверка на выход за границы карты
+                                                if(
+                                                    xNew >= this.props.M || xNew < 0 ||
+                                                    yNew >= this.props.N || yNew < 0
+                                                ) {
+                                                    erCode.push(errorNames.outOfMap + ' - ' + roboNames[i]);
+                                                }
+
+                                                console.log(i)
+                                                console.log(yNew)
+                                                console.log(xNew)
+                                                console.log(newGameState.gameBoardRows[yNew][xNew])
+                                                if(newGameState.gameBoardRows[yNew][xNew][0] === tileNames.mountain) {
+                                                    erCode.push(errorNames.roboMount + ' - ' + roboNames[i]);
+                                                }*/
 
                         break;
                     }
@@ -278,7 +625,7 @@ export class GameButtonsMenu extends  Component{
                     }
 
                     case 3:{
-                        if(x + 1 === newGameState.N)
+                        if(x + 1 === newGameState.M)
                             erCode.push(errorNames.connectionErrorPlace + ' - ' + roboNames[i]);
                         else
                             if(this.props.gameState.gameBoardRows[y][x+1] !== '')
@@ -288,20 +635,25 @@ export class GameButtonsMenu extends  Component{
                                     erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
                                 else
                                 {
-                                    //console.log(i);
                                     //console.log(roboNames[newGameState[i][4].split('_')[0]]);
                                     //console.log(newGameState[i][4]);
-                                    var bots = newGameState[i][4].split('_');
+                                    var bots = newGameState[i][4].split('_').filter(function(value){
+
+                                        return value !== '';
+
+                                    });
                                     var s = bots.length - 1;
                                     var newBot = roboNames[bots[0]];
-                                    //console.log(newBot)
+                                    console.log(s);
+                                    console.log(bots);
+
 
                                     newGameState[i] = [-1, -1, 0, 0];
                                     newGameState[newBot] = [y, x + 1, 0, 0];
 
                                     switch (s) {
                                         case 1: newGameState[roboNames[bots[1]]] = [y, x, 0, 0]; break;
-                                        case 2: newGameState[5] = [y, x, 0, 0, bots[1] + '_' + bots[2]]; break;
+                                        case 2: newGameState[4] = [y, x, 0, 0, bots[1] + '_' + bots[2]]; console.log(bots[1] + '_' + bots[2]); break;
                                         case 3: newGameState[6] = [y, x, 0, 0,  bots[1] + '_' + bots[2] + '_' + bots[3]]; break;
                                     }
                                 }
@@ -311,6 +663,42 @@ export class GameButtonsMenu extends  Component{
                 }
             }
         }
+
+
+        //Проверка на столкновение роботов и падение в яму
+        for(var i = 0; i < 8; i++){
+            var x = newGameState[i][1];
+            var y = newGameState[i][0];
+
+
+            if(
+                x > -1 && y > -1 &&
+                x < this.props.M && y < this.props.N
+            )
+                if(
+                    newGameState.gameBoardRows[y][x] !== tileNames.storage ||
+                    newGameState.gameBoardRows[y][x] !== tileNames.rocket
+                ){
+                    for(var j = i + 1; j < 8; j++) {
+                            if(
+                            x !== -1 &&
+                            y === newGameState[j][0] &&
+                            x === newGameState[j][1]
+                        ){
+                            erCode.push(errorNames.roboCollision + ' - ' + roboNames[i] + ' - ' + roboNames[j]);
+                        }
+                        else;
+                    }
+                }
+                else{
+                    if(newGameState.gameBoardRows[y][x] === tileNames.hole)
+                        erCode.push(errorNames.roboFall + ' - ' + roboNames[i] + ' - ' + roboNames[j]);
+
+                    //if(newGameState.gameBoardRows[y][x] === tileNames.mountain)
+                    //    erCode.push(errorNames.roboMount + ' - ' + roboNames[i] + ' - ' + roboNames[j]);
+                }
+        }
+
         return {
             field:newGameState.gameBoardRows,
             a1: newGameState[0],
@@ -324,7 +712,6 @@ export class GameButtonsMenu extends  Component{
             erCode: erCode
         };
     }
-
 
     loadMap(e){
         var file = e.target.files[0];
@@ -446,21 +833,42 @@ export class GameButtonsMenu extends  Component{
     }
 
 
+
+    handleStepBack(e){
+        if(this.props.selectedRow !== 1)
+            this.props.stepBack();
+        else
+            alert('Невозможно сделать шаг назад')
+    }
     handleReset(e){
         this.props.resetBoard()
     }
     render() {
         return(
             <div>
-                <input name="fileMap" type="file" onChange={(e)=> this.loadMap(e)} title={"Загрузить карту"} />
-
-                <button onClick={(e)=> this.handleMakeStep(e)}>
-                    Сделать шаг
-                </button>
+                <div>
+                    <label>
+                        Карта:
+                        <input name="fileMap" type="file" onChange={(e)=> this.loadMap(e)} title={"Загрузить карту"} />
+                    </label>
+                    <label>
+                        Алгоритм:
+                        <input name="fileMap" type="file" onChange={(e)=> this.loadMap(e)} title={"Загрузить карту"} />
+                    </label>
+                </div>
 
                 <button onClick={(e)=> this.handleReset(e)}>
                     В начало
                 </button>
+
+                <button onClick={(e)=> this.handleStepBack(e)}>
+                    Сделать шаг назад
+                </button>
+
+                <button onClick={(e)=> this.handleMakeStep(e)}>
+                    Сделать шаг вперёд
+                </button>
+
             </div>
         )}
 

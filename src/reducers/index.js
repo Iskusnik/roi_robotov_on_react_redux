@@ -7,11 +7,12 @@ import {
     CHANGE_COMPOSE_MOVE,
     LOAD_GAME_FIELD,
     MAKE_STEP,
-    RESET_BOARD,
+    RESET_BOARD, STEP_BACK,
 } from "../actions/actionTypes";
 import {gameButtons} from "../components/GameConstants";
 
 const initialState = {
+    previousState: {},
     gameBoardRows: [
         ['','','','',''],
         ['','A','B','',''],
@@ -149,7 +150,7 @@ const initialStateTestComposeRobo = {
     gameBoardRowsStartingPosition: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
 };
 
-function rootReducer(state = initialStateSplitConnect, action) {
+function rootReducer(state = initialState, action) {
     if (action.type === UPDATE_CODE_FIELD) {
 
         const newEmptyRow = ['','','','','','','',''];
@@ -312,9 +313,22 @@ function rootReducer(state = initialStateSplitConnect, action) {
     }
     if (action.type === MAKE_STEP) {
         //console.log(state.A1StartingPosition);
+
+
         var currentRow = (state.currentCodeRow + 1);
         if (currentRow === state.codeBoardRows.length)
-            currentRow -= 1;
+            alert('Конец алгоритма')
+        else{
+
+        var oldState = JSON.parse(JSON.stringify(state));
+        /*console.log(state.A1)
+        console.log(oldState.A1)
+        try {
+        console.log(oldState.previousState.A1)
+        }
+        catch (e) {
+
+        }*/
         return {
             ...state,
             gameBoardRows: action.payload.field,
@@ -328,7 +342,8 @@ function rootReducer(state = initialStateSplitConnect, action) {
             A3: action.payload.a3,
             A4: action.payload.a4,
             currentCodeRow: currentRow,
-        }
+            previousState: oldState
+        }}
     }
     if (action.type === RESET_BOARD) {
 
@@ -344,6 +359,25 @@ function rootReducer(state = initialStateSplitConnect, action) {
             A3: [-1, -1, 0, 0],
             A4: [-1, -1, 0, 0],
             currentCodeRow: 1,
+            paused: false,
+            playing: false,
+        }
+    }
+
+    if (action.type === STEP_BACK) {
+        return {
+            ...state,
+            gameBoardRows: JSON.parse(JSON.stringify(state.previousState.gameBoardRows)),//Object.assign([],state.gameBoardRowsStartingPosition),
+            A1: JSON.parse(JSON.stringify(state.previousState.A1)),
+            B1: JSON.parse(JSON.stringify(state.previousState.B1)),
+            C1: JSON.parse(JSON.stringify(state.previousState.C1)),
+            D1: JSON.parse(JSON.stringify(state.previousState.D1)),
+            A2: JSON.parse(JSON.stringify(state.previousState.A2)),
+            B2: JSON.parse(JSON.stringify(state.previousState.B2)),
+            A3: JSON.parse(JSON.stringify(state.previousState.A3)),
+            A4: JSON.parse(JSON.stringify(state.previousState.A4)),
+            currentCodeRow: JSON.parse(JSON.stringify(state.previousState.currentCodeRow)),
+            previousState: JSON.parse(JSON.stringify(state.previousState.previousState)),
             paused: false,
             playing: false,
         }
