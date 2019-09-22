@@ -833,6 +833,18 @@ export class GameButtonsMenu extends  Component{
     }
 
 
+    handleAnimation(e){
+        if(this.props.selectedRow !== 1)
+            this.props.stepBack();
+        else
+            alert('Невозможно сделать шаг назад')
+    }
+    handleMakeAllSteps(e){
+        if(this.props.selectedRow !== 1)
+            this.props.stepBack();
+        else
+            alert('Невозможно сделать шаг назад')
+    }
 
     handleStepBack(e){
         if(this.props.selectedRow !== 1)
@@ -869,6 +881,13 @@ export class GameButtonsMenu extends  Component{
                     Сделать шаг вперёд
                 </button>
 
+                <button onClick={(e)=> this.handleAnimation(e)}>
+                    Запустить выполнение алгоритма
+                </button>
+
+                <button onClick={(e)=> this.handleMakeAllSteps(e)}>
+                    Выполнить алгоритм
+                </button>
             </div>
         )}
 
