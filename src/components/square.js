@@ -27,17 +27,36 @@ class CodeSquare extends Component{
     {
         if(this.props.boardType === CODE) {
             if (this.props.y !== 0)
-                return (
-                    <div className="divTableCell">
-                        <button className="square" onClick={this.handleClick}>
+                {
+                    if (this.props.x !== 0)
+                        return (
+                            <div className="divTableCell">
+                                <button className="square" onClick={this.handleClick}>
+                                    {
+                                        this.props.value
+                                    }
+                                </button>
+                            </div>
+                        );
+                    else
+                        return (
+                            <div className="divTableCell" style={{ fontWeight: 'bolder', fontSize: '200%'}}>
+                                    {
+                                        this.props.y
+                                    }
+                            </div>
+                        );
+                }
+            else{
+                //console.log(this.props)
+                if(this.props.x === 0)
+                    return (
+                        <div className="divTableCell" style={{ fontWeight: 'bolder', fontSize: '200%'}}>
                             {
                                 this.props.value
                             }
-                        </button>
-                    </div>
-                );
-            else{
-                //console.log(this.props)
+                        </div>
+                    );
                 if(this.props.bot.exist >= 0)
                     return (
                         <div className="divTableCell">

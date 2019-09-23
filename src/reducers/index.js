@@ -109,16 +109,18 @@ const initialStateSplitConnect = {
     ],
 };
 const initialStateTestComposeRobo = {
+    previousState: {},
     gameBoardRows: [
-        ['','','',''],
-        ['','A','B',''],
-        ['','D','C',''],
-        ['','','','']
+        ['','','','',''],
+        ['','A','B','h',''],
+        ['','D','C','',''],
+        ['','','','',''],
+        ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
     ],
-    codeBoardRows: [['А1','Б1','В1','Г1','А2','Б2','А3','А4'],['←1','↓1','→1','←1','','','','']],
-    currentCodeRow: [1],
-    N: [4], //columns x
-    M: [4], //rows    y
+    codeBoardRows: [['№','А1','B1','C1','D1','А2','B2','А3','А4'],['','←1','↓1','→1','←1','','','',''],['','','','','','','','','']],
+    currentCodeRow: 1,
+    N: [5], //columns x
+    M: [5], //rows    y
     buttonValue: 'UP',
     moveSize:1,
     foodSizeLoad:0,
@@ -130,7 +132,7 @@ const initialStateTestComposeRobo = {
         jump2:{dir:'', size:1},
         jump3:{dir:'', size:1},
     },
-    //y,x,food,fuel
+    //y,x,fuel,food
     A1: [1, 1, 0, 0],
     B1: [1, 2, 0, 0],
     C1: [2, 2, 0, 0],
@@ -147,13 +149,19 @@ const initialStateTestComposeRobo = {
     C1StartingPosition: [2, 2, 0, 0],
     D1StartingPosition: [2, 1, 0, 0],
 
-    gameBoardRowsStartingPosition: [[['rocket',1,1],2,3],[4,5,6],[7,'h','j'],[11,'k', 'L__']],
+    gameBoardRowsStartingPosition:[
+        ['','','','',''],
+        ['','A','B','',''],
+        ['','D','C','',''],
+        ['','','','',''],
+        ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
+    ],
 };
 
-function rootReducer(state = initialState, action) {
+function rootReducer(state = initialStateTestComposeRobo, action) {
     if (action.type === UPDATE_CODE_FIELD) {
 
-        const newEmptyRow = ['','','','','','','',''];
+        const newEmptyRow = ['','','','','','','','',''];
 
         var codeBoardNew = [...state.codeBoardRows];
         if(action.payload.Y === (state.codeBoardRows.length - 1))

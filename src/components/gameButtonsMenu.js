@@ -9,14 +9,14 @@ const mapStateToProps = state => {
         gameState:{
             gameBoardRows: state.gameBoardRows,
             //y,x,food,fuel
-            0: state.A1,
-            1: state.B1,
-            2: state.C1,
-            3: state.D1,
-            4: state.A2,
-            5: state.B2,
-            6: state.A3,
-            7: state.A4,
+            1: state.A1,
+            2: state.B1,
+            3: state.C1,
+            4: state.D1,
+            5: state.A2,
+            6: state.B2,
+            7: state.A3,
+            8: state.A4,
         },
 
         codeBoardRows: state.codeBoardRows,
@@ -28,18 +28,18 @@ const mapStateToProps = state => {
     };
 };
 const roboNames = {
-    0: 'A1',
-    1: 'B1',
-    2: 'C1',
-    3: 'D1',
-    4: 'A2',
-    5: 'B2',
-    6: 'A3',
-    7: 'A4',
-    'A1': 0,
-    'B1': 1,
-    'C1': 2,
-    'D1': 3,
+    1: 'A1',
+    2: 'B1',
+    3: 'C1',
+    4: 'D1',
+    5: 'A2',
+    6: 'B2',
+    7: 'A3',
+    8: 'A4',
+    'A1': 1,
+    'B1': 2,
+    'C1': 3,
+    'D1': 4,
 };
 function mapDispatchToProps(dispatch) {
     return {
@@ -80,7 +80,7 @@ export class GameButtonsMenu extends  Component{
         var newGameState = JSON.parse(JSON.stringify(this.props.gameState));
         var line = this.props.codeBoardRows[this.props.selectedRow];
 
-        for(var i = 0; i < 8; i++){
+        for(var i = 1; i <= 8; i++){
 
             var y = Object.assign({},this.props.gameState[i][0]);
             var x = Object.assign({},this.props.gameState[i][1]);
@@ -666,21 +666,20 @@ export class GameButtonsMenu extends  Component{
 
 
         //Проверка на столкновение роботов и падение в яму
-        for(var i = 0; i < 8; i++){
+        for(var i = 1; i <= 8; i++){
             var x = newGameState[i][1];
             var y = newGameState[i][0];
-
 
             if(
                 x > -1 && y > -1 &&
                 x < this.props.M && y < this.props.N
-            )
+            ) {//console.log(newGameState.gameBoardRows[y][x])
                 if(
-                    newGameState.gameBoardRows[y][x] !== tileNames.storage ||
-                    newGameState.gameBoardRows[y][x] !== tileNames.rocket
+                    newGameState.gameBoardRows[y][x][0] !== tileNames.storage &&
+                    newGameState.gameBoardRows[y][x][0] !== tileNames.rocket
                 ){
-                    for(var j = i + 1; j < 8; j++) {
-                            if(
+                    for(var j = i + 1; j <= 8; j++) {
+                        if(
                             x !== -1 &&
                             y === newGameState[j][0] &&
                             x === newGameState[j][1]
@@ -689,26 +688,25 @@ export class GameButtonsMenu extends  Component{
                         }
                         else;
                     }
-                }
-                else{
                     if(newGameState.gameBoardRows[y][x] === tileNames.hole)
-                        erCode.push(errorNames.roboFall + ' - ' + roboNames[i] + ' - ' + roboNames[j]);
-
-                    //if(newGameState.gameBoardRows[y][x] === tileNames.mountain)
-                    //    erCode.push(errorNames.roboMount + ' - ' + roboNames[i] + ' - ' + roboNames[j]);
+                        erCode.push(errorNames.roboFall + ' - ' + roboNames[i]);
+                }
+                else;
+                //if(newGameState.gameBoardRows[y][x] === tileNames.mountain)
+                //    erCode.push(errorNames.roboMount + ' - ' + roboNames[i] + ' - ' + roboNames[j]);
                 }
         }
 
         return {
             field:newGameState.gameBoardRows,
-            a1: newGameState[0],
-            b1: newGameState[1],
-            c1: newGameState[2],
-            d1: newGameState[3],
-            a2: newGameState[4],
-            b2: newGameState[5],
-            a3: newGameState[6],
-            a4: newGameState[7],
+            a1: newGameState[1],
+            b1: newGameState[2],
+            c1: newGameState[3],
+            d1: newGameState[4],
+            a2: newGameState[5],
+            b2: newGameState[6],
+            a3: newGameState[7],
+            a4: newGameState[8],
             erCode: erCode
         };
     }

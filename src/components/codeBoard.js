@@ -9,14 +9,15 @@ const mapStateToProps = state => {
         rows: state.codeBoardRows,
         selectedRow: state.currentCodeRow,
         bots: {
-            0: state.A1,
-            1: state.B1,
-            2: state.C1,
-            3: state.D1,
-            4: state.A2,
-            5: state.B2,
-            6: state.A3,
-            7: state.A4,
+            0: 0,
+            1: state.A1,
+            2: state.B1,
+            3: state.C1,
+            4: state.D1,
+            5: state.A2,
+            6: state.B2,
+            7: state.A3,
+            8: state.A4,
         }
     };
 };
