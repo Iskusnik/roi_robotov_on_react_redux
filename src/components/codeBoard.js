@@ -23,10 +23,12 @@ const mapStateToProps = state => {
 };
 
 const CodeBoard = ({ rows, selectedRow, bots }) => (
-    <div className="divTable">
-        {rows.map((row, index) => {
-            return <Row row={row} y={index} boardType={CODE} selectedRow={selectedRow} bots={bots}/>
-        })}
+    <div style={{overflow: 'auto', height:'1000px', width:'100%'}}>
+        <div className="divTable">
+            {rows.map((row, index) => {
+                return <Row row={row} y={index} boardType={CODE} selectedRow={selectedRow} bots={bots}/>
+            })}
+        </div>
     </div>
 );
 

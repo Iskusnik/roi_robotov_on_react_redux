@@ -31,7 +31,7 @@ class CodeSquare extends Component{
                     if (this.props.x !== 0)
                         return (
                             <div className="divTableCell">
-                                <button className="square" onClick={this.handleClick}>
+                                <button className="square" onClick={this.handleClick} style={{ fontWeight: 'bolder', fontSize: '200%'}}>
                                     {
                                         this.props.value
                                     }

@@ -26,7 +26,7 @@ class CodeInputNumber extends Component{
     render()
     {
         return (
-            <div className="flex-container">
+            <div className="flex-container" style={{ fontWeight: 'bolder', fontSize: '100%', width:'100%'}}>
                 <div>
                     {this.props.name}
                 </div>

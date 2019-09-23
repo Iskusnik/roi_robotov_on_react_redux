@@ -61,7 +61,7 @@ class CodeButton extends Component{
     {
         return (
             <div>
-                <button className="square" onClick={this.handleClick} disabled={this.props.disabled}>
+                <button className="square" onClick={this.handleClick} disabled={this.props.disabled} style={{ fontWeight: 'bolder', fontSize: '70%'}}>
                     {
                         commandToText(this.props.butCom)
                     }

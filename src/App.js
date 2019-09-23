@@ -9,21 +9,27 @@ import GameBoard from "./components/gameBoard";
 
 const App = () => (
     <div className="row mt-5">
-      <div className="col-md-4 offset-md-1">
-          <GameButtonsMenu/>
+        <div className="col-md-4 offset-md-1">
 
-          <h2>Board 2</h2>
-          <GameBoard/>
+            <GameButtonsMenu/>
+            <div className="flex-container-menu">
 
-          <h2>Board 2</h2>
-          <CodeBoard/>
+                <div style={{overflow: 'auto', height:'50%', width:'50%', backgroundColor:'white', margin: '0 auto'}}>
+                    <GameBoard/>
+                </div>
+                <CodeButtonsMenu/>
+            </div>
 
-          <CodeButtonsMenu/>
-      </div>
+            <h2>Board 2</h2>
+            <CodeBoard/>
+        </div>
     </div>
 );
 
 /*
+<div className="container">
+                <div className="flex-container">
+
 <Board />
 function App() {
   return (
