@@ -167,7 +167,7 @@ function rootReducer(state = initialStateTestComposeRobo, action) {
         if(action.payload.Y === (state.codeBoardRows.length - 1))
             codeBoardNew = [...state.codeBoardRows, newEmptyRow];
 
-        return Object.assign({}, state, {
+        var result = Object.assign({}, state, {
             codeBoardRows: codeBoardNew.map((row, rowIndex) => {
                 if(rowIndex === action.payload.Y)
                     return row.map((cell, cellIndex) =>{
@@ -180,6 +180,33 @@ function rootReducer(state = initialStateTestComposeRobo, action) {
                     return row;
             })
         })
+
+
+        if(
+            action.payload.Y === (result.codeBoardRows.length - 2) &&
+            JSON.stringify(result.codeBoardRows[action.payload.Y]) === JSON.stringify(newEmptyRow)
+        ) {
+
+            codeBoardNew = [...result.codeBoardRows];
+            var index = action.payload.Y;
+            if (index !== -1) {
+                codeBoardNew.splice(index, 1);
+            }
+        }
+        var result = Object.assign({}, state, {
+            codeBoardRows: codeBoardNew.map((row, rowIndex) => {
+                if(rowIndex === action.payload.Y)
+                    return row.map((cell, cellIndex) =>{
+                        if(cellIndex === action.payload.X)
+                            return commandTransform(state.buttonValue, state);
+                        else
+                            return cell;
+                    })
+                else
+                    return row;
+            })
+        })
+        return result;
     }
     if (action.type === CHANGE_CODE_BUTTON) {
         return {
@@ -325,33 +352,35 @@ function rootReducer(state = initialStateTestComposeRobo, action) {
 
         var currentRow = (state.currentCodeRow + 1);
         if (currentRow === state.codeBoardRows.length)
-            alert('Конец алгоритма')
+            getResult(state)
         else{
+            if (currentRow === state.codeBoardRows.length - 1)
+                getResult(state)
+            var oldState = JSON.parse(JSON.stringify(state));
+            /*console.log(state.A1)
+            console.log(oldState.A1)
+            try {
+            console.log(oldState.previousState.A1)
+            }
+            catch (e) {
 
-        var oldState = JSON.parse(JSON.stringify(state));
-        /*console.log(state.A1)
-        console.log(oldState.A1)
-        try {
-        console.log(oldState.previousState.A1)
+            }*/
+            return {
+                ...state,
+                gameBoardRows: action.payload.field,
+                A1: action.payload.a1,
+                B1: action.payload.b1,
+                C1: action.payload.c1,
+                D1: action.payload.d1,
+
+                A2: action.payload.a2,
+                B2: action.payload.b2,
+                A3: action.payload.a3,
+                A4: action.payload.a4,
+                currentCodeRow: currentRow,
+                previousState: oldState
+            }
         }
-        catch (e) {
-
-        }*/
-        return {
-            ...state,
-            gameBoardRows: action.payload.field,
-            A1: action.payload.a1,
-            B1: action.payload.b1,
-            C1: action.payload.c1,
-            D1: action.payload.d1,
-
-            A2: action.payload.a2,
-            B2: action.payload.b2,
-            A3: action.payload.a3,
-            A4: action.payload.a4,
-            currentCodeRow: currentRow,
-            previousState: oldState
-        }}
     }
     if (action.type === RESET_BOARD) {
 
@@ -392,7 +421,26 @@ function rootReducer(state = initialStateTestComposeRobo, action) {
     }
     return state;
 };
+function getResult(state) {
 
+    var botName ={
+        0: 'A1',
+        1: 'B1',
+        2: 'C1',
+        3: 'D1',
+    }
+
+    var result = [];
+    for (var i = 0; i < 4; i++)
+        if(state.gameBoardRows[state[botName[i]][0]][state[botName[i]][0]] === botName[i][0])
+            result.push('Робот ' + botName[i] +' на базе');
+        else
+            result.push('Робот ' + botName[i] +' не на базе (!)');
+
+    result = 'Результат: \n' + result.join('\n');
+
+    alert(result);
+}
 function commandTransform(buttonValue, state) {
     switch (buttonValue) {
         //UP
