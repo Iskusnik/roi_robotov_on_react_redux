@@ -1,4 +1,4 @@
-import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE, LOAD_GAME_FIELD, MAKE_STEP, RESET_BOARD, STEP_BACK} from "./actionTypes";
+import {UPDATE_CODE_FIELD, CHANGE_CODE_BUTTON, CHANGE_INPUT_VALUE, CHANGE_COMPOSE_MOVE, LOAD_GAME_FIELD, MAKE_STEP, RESET_BOARD, STEP_BACK, LOAD_ALGO, PLAY, PAUSE} from "./actionTypes";
 
 
 
@@ -81,6 +81,27 @@ export function resetBoard() {
 export function stepBack() {
     return({
         type: STEP_BACK,
+    })
+}
+
+export function loadAlgo(codeBoard) {
+    return({
+        type: LOAD_ALGO,
+        payload:{
+            newCode: codeBoard
+        }
+    })
+}
+
+export function play() {
+    return({
+        type: PLAY,
+    })
+}
+
+export function pause() {
+    return({
+        type: PAUSE,
     })
 }
 /*

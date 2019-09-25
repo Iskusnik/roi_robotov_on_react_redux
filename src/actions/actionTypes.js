@@ -12,7 +12,9 @@ export const MAKE_STEP = 'MAKE_STEP';
 export const RESET_BOARD = 'RESET_BOARD';
 export const STEP_BACK = 'STEP_BACK';
 
-
+export const LOAD_ALGO = 'LOAD_ALGO';
+export const PLAY = 'PLAY'
+export const PAUSE = 'PAUSE'
 
 export const GENERATE_GAME_FIELD = 'GENERATE_GAME_FIELD';
 export const UPDATE_GAME_FIELD = 'UPDATE_GAME_FIELD';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './componentsStyles.css';
 import {tileNames, errorNames} from './GameConstants';
-import {loadGameField, makeStep, resetBoard, stepBack} from "../actions/actionCreators";
+import {loadGameField, makeStep, resetBoard, stepBack, loadAlgo, play, pause} from "../actions/actionCreators";
 
 const mapStateToProps = state => {
     return {
@@ -23,8 +23,8 @@ const mapStateToProps = state => {
         selectedRow: state.currentCodeRow,
         N: state.N, //rows, y
         M: state.M, //columns, x
-        pause: state.paused,
-        play: state.playing,
+        paused: state.paused,
+        playing: state.playing,
     };
 };
 const roboNames = {
@@ -47,6 +47,9 @@ function mapDispatchToProps(dispatch) {
         makeStep:(field, a1,b1,c1,d1,a2,b2,a3,a4) => dispatch(makeStep(field, a1,b1,c1,d1,a2,b2,a3,a4)),
         resetBoard:()=>dispatch(resetBoard()),
         stepBack:()=>dispatch(stepBack()),
+        loadAlgo:(codeBoardNew)=>dispatch(loadAlgo(codeBoardNew)),
+        pause:()=>dispatch(pause()),
+        play:()=>dispatch(play()),
     };
 }
 
@@ -82,8 +85,8 @@ export class GameButtonsMenu extends  Component{
 
         for(var i = 1; i <= 8; i++){
 
-            var y = Object.assign({},this.props.gameState[i][0]);
-            var x = Object.assign({},this.props.gameState[i][1]);
+            var y = this.props.gameState[i][0];
+            var x = this.props.gameState[i][1];
 
             if (y === -1 && line[i] !== '') {
                 erCode.push(errorNames.unexpectedCommand + ' - ' + roboNames[i]);
@@ -109,9 +112,9 @@ export class GameButtonsMenu extends  Component{
                 }
                 switch (t) {
                     case 0:{
-                        if(i < 6){
+                        if(i <= 6){
                             if(line[i].length > 2 ||
-                                (parseInt(line[i][1]) > 1 && i < 4) ||
+                                (parseInt(line[i][1]) > 1 && i <= 4) ||
                                 parseInt(line[i][1]) > 3 ||
                                 line[i][0] === '↖' ||
                                 line[i][0] === '↗' ||
@@ -153,7 +156,7 @@ export class GameButtonsMenu extends  Component{
                                     }
                             }
                         }
-                        else if(i === 6){
+                        else if(i === 7){
                             if(
                                 line[i].length > 4 ||
                                 line[i][0] === '↖' ||
@@ -260,7 +263,7 @@ export class GameButtonsMenu extends  Component{
                                 erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
                             }
                         }
-                        else if(i === 7){
+                        else if(i === 8){
 
                             var moveSize1 = parseInt(line[i][1]);
                             var moveSize2 = 0;
@@ -502,10 +505,10 @@ export class GameButtonsMenu extends  Component{
 
                         //Перегрузка
                         if(
-                            i < 3 && (newGameState[i][2] + newGameState[i][3]) > 1 ||
-                            i < 6 && i >= 3 && (newGameState[i][2] + newGameState[i][3]) > 3 ||
-                            i < 7 && i >= 6 && (newGameState[i][2] + newGameState[i][3]) > 5 ||
-                            i === 7 && (newGameState[i][2] + newGameState[i][3]) > 8
+                            i <= 4 && (newGameState[i][2] + newGameState[i][3]) > 1 ||
+                            i <= 6 && i >= 5 && (newGameState[i][2] + newGameState[i][3]) > 3 ||
+                            i <= 7 && i > 6 && (newGameState[i][2] + newGameState[i][3]) > 5 ||
+                            i === 8 && (newGameState[i][2] + newGameState[i][3]) > 8
                         ){
                             erCode.push(errorNames.overload + ' - ' + roboNames[i]);
                         }
@@ -525,17 +528,20 @@ export class GameButtonsMenu extends  Component{
                     }
 
                     case 2:{
-                        var j = -1;
-                        for (var t = 0; t < 8; t++){
+                        var j = -1;//console.log(x)
+                        for (var k = 1; k <= 8; k++){
                             if(
-                                this.props.gameState[t][0] === y &&
-                                this.props.gameState[t][1] === x + 1
-                            )
-                                j = t;
+                                this.props.gameState[k][0] === y &&
+                                this.props.gameState[k][1] === x + 1
+                            ) {
+                                //console.log(x)
+                                j = k;
+                            }
                         }
                         if(j !== -1){
                             if(line[j] != ''){
-                                console.log(i + ' ' + j)
+                                //console.log(x + ' ' + y)
+                                //console.log(i + ' ' + j)
                                 erCode.push(errorNames.connectionErrorMove + ' - ' + roboNames[j]);
                             }
                             else
@@ -548,18 +554,19 @@ export class GameButtonsMenu extends  Component{
 
                                     var botLsize = 4, botRsize = 1, botNewSize = 0;
 
-                                    if (i < 4)
+                                    if (i <= 4)
                                         botLsize = 1;
-                                    if (i > 3 && i < 6)
+                                    if (i > 4 && i <= 6)
                                         botLsize = 2;
-                                    if (i === 6)
+                                    if (i === 7)
                                         botLsize = 3;
 
-                                    if (j > 3 && j < 6)
+                                    if (j > 4 && j <= 6)
                                         botRsize = 2;
-                                    if (j === 6)
+                                    if (j === 7)
                                         botRsize = 3;
 
+                                    console.log(i + ' ' + j)
                                     if(botLsize === 4)
                                         erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
                                     else {
@@ -571,38 +578,38 @@ export class GameButtonsMenu extends  Component{
 
                                         switch (botNewSize) {
                                             case 2:
-                                                if(newGameState[4][0] === -1)
-                                                    newGameState[4] = [y, x+1, 0, 0, roboNames[i] + '_' + roboNames[j]];
-                                                else
+                                                if(newGameState[5][0] === -1)
                                                     newGameState[5] = [y, x+1, 0, 0, roboNames[i] + '_' + roboNames[j]];
+                                                else
+                                                    newGameState[6] = [y, x+1, 0, 0, roboNames[i] + '_' + roboNames[j]];
                                                 break;
                                             case 3:
                                                 var name = '';
-                                                if(i > 3)
+                                                if(i > 4)
                                                     name += '_' + newGameState[i][4];
                                                 else
                                                     name += '_' + roboNames[i];
 
-                                                if(j > 3)
-                                                    name += '_' + newGameState[j][4];
-                                                else
-                                                    name += '_' + roboNames[j];
-
-                                                newGameState[6]= [y, x+1, 0, 0, name];
-                                                break;
-                                            case 4:
-                                                var name = '';
-                                                if(i > 3)
-                                                    name += '_' + newGameState[i][4];
-                                                else
-                                                    name += '_' + roboNames[i];
-
-                                                if(j > 3)
+                                                if(j > 4)
                                                     name += '_' + newGameState[j][4];
                                                 else
                                                     name += '_' + roboNames[j];
 
                                                 newGameState[7]= [y, x+1, 0, 0, name];
+                                                break;
+                                            case 4:
+                                                var name = '';
+                                                if(i > 4)
+                                                    name += '_' + newGameState[i][4];
+                                                else
+                                                    name += '_' + roboNames[i];
+
+                                                if(j > 4)
+                                                    name += '_' + newGameState[j][4];
+                                                else
+                                                    name += '_' + roboNames[j];
+
+                                                newGameState[8]= [y, x+1, 0, 0, name];
                                                 break;
                                         }
                                     }
@@ -631,7 +638,7 @@ export class GameButtonsMenu extends  Component{
                             if(this.props.gameState.gameBoardRows[y][x+1] !== '')
                                 erCode.push(errorNames.connectionErrorPlace + ' - ' + roboNames[i]);
                             else
-                                if(i < 3)
+                                if(i < 5)
                                     erCode.push(errorNames.wrongCommand + ' - ' + roboNames[i]);
                                 else
                                 {
@@ -831,18 +838,57 @@ export class GameButtonsMenu extends  Component{
     }
 
 
-    handleAnimation(e){
-        if(this.props.selectedRow !== 1)
-            this.props.stepBack();
-        else
-            alert('Невозможно сделать шаг назад')
-    }
     handleMakeAllSteps(e){
-        if(this.props.selectedRow !== 1)
-            this.props.stepBack();
-        else
-            alert('Невозможно сделать шаг назад')
+        console.log('play')
+        this.props.play();
+        var length = this.props.codeBoardRows.length
+        var i = this.props.selectedRow;
+        while(i !== length){
+            i++;
+            console.log('more')
+            this.handleMakeStep(e);
+        }
     }
+    handleLoadAlgo(e){
+        var file = e.target.files[0];
+
+        if (file !== undefined) {
+            var reader = new FileReader();
+            reader.onload = (e) => {
+                //console.log(JSON.parse(e.target.result))
+                var codeBoardNew = JSON.parse(e.target.result);
+
+                this.props.loadAlgo(codeBoardNew);
+            };
+            reader.readAsText(file);
+
+        }
+    }
+    handleSaveAlgo(e){
+        this.download()
+    }
+    download(filename = 'roiRobotovAlgo.txt') {
+        var text = JSON.stringify(this.props.codeBoardRows)
+        var pom = document.createElement('a');
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+
+            encodeURIComponent(text));
+        pom.setAttribute('download', filename);
+
+        pom.style.display = 'none';
+        document.body.appendChild(pom);
+
+        pom.click();
+
+        document.body.removeChild(pom);
+    }
+
+
+
+
+
+
+
 
     handleStepBack(e){
         if(this.props.selectedRow !== 1)
@@ -863,8 +909,11 @@ export class GameButtonsMenu extends  Component{
                     </label>
                     <label>
                         Алгоритм:
-                        <input name="fileMap" type="file" onChange={(e)=> this.loadMap(e)} title={"Загрузить карту"} />
+                        <input name="fileMap" type="file" onChange={(e)=> this.handleLoadAlgo(e)} title={"Загрузить алгоритм"} />
                     </label>
+                    <button onClick={(e)=> this.handleSaveAlgo(e)}>
+                        Сохранить алгоритм
+                    </button>
                 </div>
 
                 <button onClick={(e)=> this.handleReset(e)}>
@@ -879,17 +928,14 @@ export class GameButtonsMenu extends  Component{
                     Сделать шаг вперёд
                 </button>
 
-                <button onClick={(e)=> this.handleAnimation(e)}>
-                    Запустить выполнение алгоритма
-                </button>
-
-                <button onClick={(e)=> this.handleMakeAllSteps(e)}>
-                    Выполнить алгоритм
-                </button>
             </div>
         )}
 
-
+    /*
+                    <button onClick={(e)=> this.handleMakeAllSteps(e)}>
+                        Выполнить алгоритм
+                    </button>
+                    */
 }
 
 

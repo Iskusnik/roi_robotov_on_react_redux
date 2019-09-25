@@ -14,13 +14,15 @@ const App = () => (
             <GameButtonsMenu/>
             <div className="flex-container-menu">
 
-                <div style={{overflow: 'auto', height:'50%', width:'50%', backgroundColor:'white', margin: '0 auto'}}>
+                <div style={{overflow: 'auto', height:'100%', width:'100%', backgroundColor:'white', margin: '1 auto'}}>
                     <GameBoard/>
                 </div>
-                <CodeButtonsMenu/>
+                <div style={{overflow: 'auto', height:'100%', width:'100%', backgroundColor:'white', margin: '1 auto'}}>
+                    <CodeButtonsMenu />
+                </div>
             </div>
 
-            <h2>Board 2</h2>
+            <h2></h2>
             <CodeBoard/>
         </div>
     </div>

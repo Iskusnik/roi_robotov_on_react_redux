@@ -7,18 +7,28 @@ import {
     CHANGE_COMPOSE_MOVE,
     LOAD_GAME_FIELD,
     MAKE_STEP,
-    RESET_BOARD, STEP_BACK,
+    RESET_BOARD, STEP_BACK, LOAD_ALGO, PLAY, PAUSE
 } from "../actions/actionTypes";
 import {gameButtons} from "../components/GameConstants";
 
 const initialState = {
     previousState: {},
     gameBoardRows: [
-        ['','','','',''],
-        ['','A','B','',''],
-        ['','D','C','',''],
-        ['','','','',''],
-        ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
+        ['','','','','m','','','','','h','h','h'],
+
+        ['','m','',['r',0,0,6,7],'','','','','','','A','B'],
+
+        ['h',["s", 0, 8],'',["s", 0, 10],'h','h','','','','','',''],
+
+        ['','','','','','','','','h','h','',["s", 8, 0]],
+
+        ['',["s", 0, 9],'','','','h','','','','D','',''],
+
+        [['r',0,0,6,8],'','','','','',["s", 0, 9],'','C','','',["s", 10, 0]],
+        ['h','','','','h','','','','','','',''],
+        ['','','','','m',["s", 0, 9],'','','','',["s", 10, 0],''],
+        ['','m','','','','m','','','m','','','']
+
     ],
     codeBoardRows: [['А1','B1','C1','D1','А2','B2','А3','А4'],['←1','↓1','→1','←1','','','',''],['','','','','','','','']],
     currentCodeRow: 1,
@@ -111,16 +121,26 @@ const initialStateSplitConnect = {
 const initialStateTestComposeRobo = {
     previousState: {},
     gameBoardRows: [
-        ['','','','',''],
-        ['','A','B','h',''],
-        ['','D','C','',''],
-        ['','','','',''],
-        ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
+        ['','','','','m','','','','','h','h','h'],
+
+        ['','m','',['r',0,0,6,7],'','','','','','','A','B'],
+
+        ['h',["s", 0, 8],'',["s", 0, 10],'h','h','','','','','',''],
+
+        ['','','','','','','','','h','h','',["s", 8, 0]],
+
+        ['',["s", 0, 9],'','','','h','','','','D','',''],
+
+        [['r',0,0,6,8],'','','','','',["s", 0, 9],'','C','','',["s", 10, 0]],
+        ['h','','','','h','','','','','','',''],
+        ['','','','','m',["s", 0, 9],'','','','',["s", 10, 0],''],
+        ['','m','','','','m','','','m','','','']
+
     ],
-    codeBoardRows: [['№','А1','B1','C1','D1','А2','B2','А3','А4'],['','←1','↓1','→1','←1','','','',''],['','','','','','','','','']],
+    codeBoardRows: [["№","А1","B1","C1","D1","А2","B2","А3","А4"],["","стык","","↑1","","","","",""],["","","","стык","","","","",""],["","","","","","","←3","",""],["","","","","","←3","←3","",""],["","","","","","","↑2","",""],["","","","","","","+Т0П3","",""],["","","","","","←3","↑1","",""],["","","","","","","-Т0П3","",""],["","","","","","","расстык","",""],["","","","стык","←1","","","",""],["","","","","","","","↓4→1",""],["","","","","","","","",""]],
     currentCodeRow: 1,
-    N: [5], //columns x
-    M: [5], //rows    y
+    N: [9], //y
+    M: [12], //x
     buttonValue: 'UP',
     moveSize:1,
     foodSizeLoad:0,
@@ -133,10 +153,10 @@ const initialStateTestComposeRobo = {
         jump3:{dir:'', size:1},
     },
     //y,x,fuel,food
-    A1: [1, 1, 0, 0],
-    B1: [1, 2, 0, 0],
-    C1: [2, 2, 0, 0],
-    D1: [2, 1, 0, 0],
+    A1: [1, 10, 0, 0],
+    B1: [1, 11, 0, 0],
+    C1: [5, 8, 0, 0],
+    D1: [4, 9, 0, 0],
     A2: [-1, -1, 0, 0],
     B2: [-1, -1, 0, 0],
     A3: [-1, -1, 0, 0],
@@ -144,17 +164,26 @@ const initialStateTestComposeRobo = {
     paused: false,
     playing: false,
 
-    A1StartingPosition: [1, 1, 0, 0],
-    B1StartingPosition: [1, 2, 0, 0],
-    C1StartingPosition: [2, 2, 0, 0],
-    D1StartingPosition: [2, 1, 0, 0],
+    A1StartingPosition: [1, 10, 0, 0],
+    B1StartingPosition: [1, 11, 0, 0],
+    C1StartingPosition: [5, 8, 0, 0],
+    D1StartingPosition: [4, 9, 0, 0],
 
     gameBoardRowsStartingPosition:[
-        ['','','','',''],
-        ['','A','B','',''],
-        ['','D','C','',''],
-        ['','','','',''],
-        ['','',["r", 1, 1, 6, 7],["s", 10, 11],''],
+        ['','','','','m','','','','','h','h','h'],
+
+        ['','m','',['r',0,0,6,7],'','','','','','','A','B'],
+
+        ['h',["s", 0, 8],'',["s", 0, 10],'h','h','','','','','',''],
+
+        ['','','','','','','','','h','h','',["s", 8, 0]],
+
+        ['',["s", 0, 9],'','','','h','','','','D','',''],
+
+        [['r',0,0,6,8],'','','','','',["s", 0, 9],'','C','','',["s", 10, 0]],
+        ['h','','','','h','','','','','','',''],
+        ['','','','','m',["s", 0, 9],'','','','',["s", 10, 0],''],
+        ['','m','','','','m','','','m','','','']
     ],
 };
 
@@ -351,11 +380,15 @@ function rootReducer(state = initialStateTestComposeRobo, action) {
 
 
         var currentRow = (state.currentCodeRow + 1);
-        if (currentRow === state.codeBoardRows.length)
+        if (currentRow === state.codeBoardRows.length){
             getResult(state)
+            return {
+                ...state,
+                playing: false
+            }
+        }
         else{
-            if (currentRow === state.codeBoardRows.length - 1)
-                getResult(state)
+
             var oldState = JSON.parse(JSON.stringify(state));
             /*console.log(state.A1)
             console.log(oldState.A1)
@@ -365,7 +398,7 @@ function rootReducer(state = initialStateTestComposeRobo, action) {
             catch (e) {
 
             }*/
-            return {
+           var stateRes ={
                 ...state,
                 gameBoardRows: action.payload.field,
                 A1: action.payload.a1,
@@ -380,6 +413,12 @@ function rootReducer(state = initialStateTestComposeRobo, action) {
                 currentCodeRow: currentRow,
                 previousState: oldState
             }
+            if (currentRow === stateRes.codeBoardRows.length - 1 && stateRes.playing)
+                return {
+                    ...stateRes,
+                    playing: false
+                }
+            return stateRes;
         }
     }
     if (action.type === RESET_BOARD) {
@@ -419,6 +458,27 @@ function rootReducer(state = initialStateTestComposeRobo, action) {
             playing: false,
         }
     }
+    if(action.type === PLAY){
+        console.log('look')
+        return {
+            ...state,
+            playing: true
+        }
+    }
+    if(action.type === PAUSE){
+        return {
+            ...state,
+            playing: false,
+            paused: true,
+        }
+    }
+    if(action.type === LOAD_ALGO){
+        return {
+            ...state,
+            codeBoardRows: JSON.parse(JSON.stringify(action.payload.newCode))
+        }
+    }
+
     return state;
 };
 function getResult(state) {
@@ -431,11 +491,18 @@ function getResult(state) {
     }
 
     var result = [];
-    for (var i = 0; i < 4; i++)
-        if(state.gameBoardRows[state[botName[i]][0]][state[botName[i]][0]] === botName[i][0])
-            result.push('Робот ' + botName[i] +' на базе');
+    for (var i = 0; i < 4; i++){
+        if (state[botName[i]][0] !== -1) {
+            //console.log(botName[i][0])
+            //console.log(state.gameBoardRows[state[botName[i]][0]][state[botName[i]][1]])
+            if(state.gameBoardRows[state[botName[i]][0]][state[botName[i]][1]] == botName[i][0])
+                result.push('Робот ' + botName[i] +' на базе');
+            else
+                result.push('Робот ' + botName[i] +' не на базе (!)');
+            }
         else
-            result.push('Робот ' + botName[i] +' не на базе (!)');
+            result.push('Робот ' + botName[i] +' не существует (!!)');
+    }
 
     result = 'Результат: \n' + result.join('\n');
 
@@ -483,9 +550,7 @@ function commandTransform(buttonValue, state) {
         case 'CLEAR': return(''); break;
     }
 }
-function makeStep() {
 
-}
 export default rootReducer;
 
 /*
